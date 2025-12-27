@@ -396,7 +396,12 @@ public class FabrikGUI {
         JPanel addRobot = new JPanel(new GridBagLayout());
         GridBagConstraints rc = new GridBagConstraints();
         rc.insets = new Insets(4,4,4,4); rc.anchor = GridBagConstraints.WEST;
-        JComboBox<String> type = new JComboBox<>(new String[]{"Holzverarbeitungsroboter"});
+        JComboBox<String> type = new JComboBox<>(new String[]{
+            "Holzverarbeitungsroboter",
+            "Montage_Roboter",
+            "Lackier_Roboter",
+            "Verpackungs_Roboter"
+        });
         JTextField rName = new JTextField(16);
         JSpinner rYear = new JSpinner(new SpinnerNumberModel(java.util.Calendar.getInstance().get(java.util.Calendar.YEAR), 1980, 2100, 1));
         // Jahresanzeige ohne Tausendertrennzeichen (kein Apostroph)
@@ -420,6 +425,12 @@ public class FabrikGUI {
             Roboter newR;
             if ("Holzverarbeitungsroboter".equals(t)) {
                 newR = new Holzverarbeitungsroboter(nm);
+            } else if ("Montage_Roboter".equals(t)) {
+                newR = new Roboter(nm); // generischer Roboter als Platzhalter
+            } else if ("Lackier_Roboter".equals(t)) {
+                newR = new Roboter(nm); // generischer Roboter als Platzhalter
+            } else if ("Verpackungs_Roboter".equals(t)) {
+                newR = new Roboter(nm); // generischer Roboter als Platzhalter
             } else {
                 newR = new Roboter(nm);
             }
