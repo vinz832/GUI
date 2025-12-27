@@ -55,6 +55,9 @@ public class Produktionsmanager extends Thread
         holzRoboter.start(); // Aktivierung des Holzroboter-Threads
         // Default-Metadaten
         holzRoboter.setzeProduktionsJahr(2015);
+        // Explizite Zeitvorgaben fuer WoodPecker (komprimierte Produktionsdauer in ms)
+        holzRoboter.setzeProduktionsZeitStandardtuer(6000);
+        holzRoboter.setzeProduktionsZeitPremiumtuer(18000);
         maschinenpark.add(holzRoboter);
     }
     
