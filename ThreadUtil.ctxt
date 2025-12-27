@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=ThreadUtil
+comment0.text=\n\ Dieses\ Dienstprogramm\ dient\ als\ Assistenzmodul\ fuer\ die\ Steuerung\ von\ Threads.\ \n\ Es\ stellt\ praktische\ Funktionen\ bereit,\ welche\ die\ Koordination\ von\ parallelen\ \n\ Prozessen\ erleichtern,\ insbesondere\ durch\ das\ kontrollierte\ Anhalten\ von\ Threads\ \n\ sowie\ die\ abgesicherte\ Textausgabe\ in\ einem\ thread-sicheren\ Umfeld.\n\n\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\n\ @21.12.2025\n
+comment1.params=time
+comment1.target=void\ sleep(int)
+comment1.text=\n\ Versetzt\ den\ aktuell\ ausfuehrenden\ Thread\ fuer\ eine\ definierte\ Dauer\ in\ den\ Ruhezustand.\n\ Diese\ Funktion\ bewirkt\ eine\ Unterbrechung\ der\ Thread-Aktivitaet\ fuer\ die\ angegebene\ \n\ Anzahl\ an\ Millisekunden.\ Dies\ ist\ besonders\ wertvoll,\ um\ zeitliche\ Verzoegerungen\ \n\ abzubilden\ oder\ die\ Synchronitaet\ zwischen\ verschiedenen\ Ablaeufen\ zu\ regulieren.\n\n\ @param\ time\ Das\ Zeitintervall\ in\ Millisekunden,\ fuer\ welches\ der\ Thread\ pausieren\ soll.\n\ @throws\ IllegalArgumentException\ Falls\ ein\ negativer\ Zeitwert\ uebergeben\ wird.\n
+comment2.params=message
+comment2.target=void\ synchronisiertesPrintln(java.lang.String)
+comment2.text=\n\ Diese\ Prozedur\ unterbindet\ Konflikte\ beim\ gleichzeitigen\ Zugriff\ verschiedener\ Threads\ auf\ die\ Konsole.\ \n\ Dadurch\ wird\ sichergestellt,\ dass\ die\ Datenkanaele\ jeweils\ nur\ von\ einer\ Einheit\ exklusiv\ genutzt\ werden.\n\n\ @param\ message\ Der\ Textinhalt,\ welcher\ im\ Ausgabefenster\ erscheinen\ soll.\n\ *\ @throws\ NullPointerException\ Falls\ die\ zu\ sendende\ Nachricht\ den\ Wert\ null\ aufweist.\n
+numComments=3

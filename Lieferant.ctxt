@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Lieferant
+comment0.text=\n\ Diese\ Klasse\ bildet\ den\ Lieferanten\ ab.\ Er\ fungiert\ als\ externer\ Partner,\ der\ die\ \n\ Materialversorgung\ f\u00FCr\ das\ Fabriklager\ sicherstellt.\ Der\ Zulieferer\ verarbeitet\ \n\ Bestellanforderungen,\ verwaltet\ variable\ Zustellfristen\ und\ stellt\ die\ fuer\ die\ \n\ Fertigung\ von\ Tueren\ (Standard\ und\ Premium)\ erforderlichen\ Ressourcen\ bereit.\n\n\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\n\ @21.12.2025\n
+comment1.params=lager
+comment1.target=Lieferant(Lager)
+comment1.text=\n\ Erzeugt\ eine\ neue\ Instanz\ der\ Lieferanten-Klasse.\n\n\ @param\ lager\ Die\ Lagerstaette\ der\ Fabrik,\ an\ die\ die\ Rohstoffe\ gesendet\ werden.\n
+comment2.params=
+comment2.target=float\ gibLieferzeit()
+comment2.text=\n\ Fragt\ die\ momentan\ gueltige\ Dauer\ fuer\ einen\ Liefervorgang\ ab.\n\n\ @return\ Zeitwert\ der\ Lieferung\ in\ Millisekunden.\n
+comment3.params=lieferzeit
+comment3.target=void\ setzNeueLieferzeit(float)
+comment3.text=\n\ Ermoeglicht\ die\ Aktualisierung\ der\ Zeitspanne,\ die\ der\ Lieferant\ fuer\ eine\ Zustellung\ benoetigt.\n\n\ @param\ lieferzeit\ Der\ neue\ Zeitwert\ in\ Millisekunden.\n
+comment4.params=zuBestellendeHolzeinheiten\ zuBestellendeSchrauben\ zuBestellendeFarbeinheiten\ zuBestellendeKartoneinheiten\ zuBestellendesGlas
+comment4.target=boolean\ wareBestellen(int,\ int,\ int,\ int,\ int)
+comment4.text=\n\ Initiiert\ den\ Bestellvorgang\ fuer\ die\ Produktionseinheiten\ beim\ Zulieferer.\n\ *\ Prueft\ die\ Durchfuehrbarkeit\ der\ Materialanforderung.\n\n\ @param\ zuBestellendeHolzeinheiten\ \ \ Menge\ an\ Holzkomponenten\n\ @param\ zuBestellendeSchrauben\ \ \ \ \ \ \ Anzahl\ der\ Eisenwaren/Schrauben\n\ @param\ zuBestellendeFarbeinheiten\ \ \ Volumen\ der\ Farbmittel\n\ @param\ zuBestellendeKartoneinheiten\ Menge\ der\ Verpackungseinheiten\n\ @param\ zuBestellendeGlaseinheiten\ \ \ Anzahl\ der\ Glaselemente\n\ *\ @return\ Gibt\ "true"\ zurueck,\ da\ die\ Annahme\ der\ Bestellung\ systemseitig\ garantiert\ ist.\n
+comment5.params=
+comment5.target=void\ run()
+comment5.text=\n\ Steuert\ den\ eigentlichen\ Zustellprozess\ im\ Hintergrund.\ Der\ Ablauf\ wird\ durch\ das\ Abwarten\ \n\ der\ definierten\ Lieferfrist\ simuliert.\ \n\ In\ dieser\ Simulation\ wird\ die\ Zeit\ gerafft\ (1\ Stunde\ entspricht\ 1\ Sekunde),\ wodurch\ die\ \n\ Lieferung\ beschleunigt\ erfolgt.\ Nach\ Ablauf\ der\ Frist\ wird\ der\ Bestand\ im\ Lager\ aktualisiert.\n
+numComments=6

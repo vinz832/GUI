@@ -1,0 +1,13 @@
+#BlueJ class context
+comment0.target=Holzverarbeitungsroboter
+comment0.text=\n\ Diese\ Komponente\ definiert\ einen\ spezialisierten\ Roboter\ fuer\ die\ Holzverarbeitung\ und\ \n\ fungiert\ als\ Erweiterung\ der\ Basisklasse\ Roboter.\n\ *\ Die\ Einheit\ uebernimmt\ die\ gezielte\ Zurichtung\ von\ Holzkomponenten\ und\ greift\ dabei\ auf\ \n\ die\ geerbten\ Eigenschaften\ der\ uebergeordneten\ Roboter-Klasse\ zu.\ Sie\ fertigt\ sowohl\ \n\ Standard-\ als\ auch\ Premiummodelle,\ wobei\ die\ Bearbeitungsdauer\ je\ nach\ Produkttyp\ \n\ (Basisvariante\ vs.\ Exklusivmodell)\ simuliert\ wird.\n\ *\ Innerhalb\ der\ Simulation\ wurden\ die\ Fertigungszeiten\ komprimiert,\ um\ eine\ effiziente\ \n\ Durchfuehrung\ der\ Testlaeufe\ zu\ ermoeglichen.\ Dieses\ Modul\ dient\ zudem\ als\ Vorlage\ \n\ fuer\ die\ moegliche\ Implementierung\ weiterer\ Fachroboter.\n\ *\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\n\ @21.12.2025\n
+comment1.params=name
+comment1.target=Holzverarbeitungsroboter(java.lang.String)
+comment1.text=\n\ Erzeugung\ einer\ neuen\ Instanz\ des\ Holzbearbeitungsroboters.\n\n\ Initialisiert\ die\ Maschine\ mit\ einer\ Bezeichnung\ und\ ruft\ den\ Konstruktor\ der\ \n\ Basisklasse\ {@link\ Roboter}\ auf.\n\n\ @param\ name\ Die\ Identifikation\ des\ Roboters\n
+comment2.params=
+comment2.target=java.lang.String\ gibName()
+comment2.text=\n\ Fragt\ den\ Namen\ der\ Maschinengattung\ ab.\n\n\ @return\ Die\ spezifische\ Bezeichnung\ der\ Roboterart\n
+comment3.params=produkt
+comment3.target=void\ produziereProdukt(Produkt)
+comment3.text=\n\ Realisierung\ des\ Herstellungsschritts\ fuer\ ein\ spezifisches\ Teil.\n\n\ Basierend\ auf\ der\ Art\ des\ Produkts\ wird\ ein\ verk\u00FCrzter\ Zeitwert\ fuer\ die\ Bearbeitung\ \n\ festgelegt\ und\ mittels\ {Thread.sleep(...)}\ abgebildet.\ Dies\ stellt\ sicher,\ dass\ \n\ der\ Ablauf\ nachvollziehbar\ bleibt,\ ohne\ reale\ Zeitspannen\ abwarten\ zu\ muessen.\n\n\ @param\ produkt\ Das\ zu\ fertigende\ Teil\ (beispielsweise\ {Standardtuer}\ oder\ {Premiumtuer})\n
+numComments=4

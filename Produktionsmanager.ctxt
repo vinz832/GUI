@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=Produktionsmanager
+comment0.text=\n\ Diese\ Klasse\ fungiert\ als\ Steuerungseinheit\ fuer\ die\ Fertigung.\ Der\ Produktionsmanager\ \n\ leitet\ die\ Bearbeitung\ der\ eingegangenen\ Auftraege\ aus\ der\ Fabrik\ und\ koordiniert\ \n\ die\ Arbeitsablaeufe\ mit\ den\ Robotersystemen\ (in\ dieser\ Ausbaustufe\ prim\u00E4r\ mit\ dem\ \n\ Roboter\ fuer\ die\ Holzbearbeitung).\n\ *\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\n\ @21.12.2025\n
+comment1.params=fabrik\ lager
+comment1.target=Produktionsmanager(Fabrik,\ Lager)
+comment1.text=\n\ Erzeugt\ einen\ neuen\ Produktionsmanager.\n\ Richtet\ die\ Auftragslisten\ ein,\ aktiviert\ die\ Roboter-Prozesse\ und\ verknuepft\ \n\ die\ Instanzen\ von\ Fabrik\ und\ Materiallager.\n\ *\ @param\ fabrik\ Referenz\ auf\ die\ ubergeordnete\ Fertigungsstaette.\n\ @param\ lager\ Referenz\ auf\ das\ Depot\ fuer\ Rohmaterialien.\n
+comment2.params=bestellung
+comment2.target=void\ fuegeZuVerarbeitendeBestellungenHinzu(Bestellung)
+comment2.text=\n\ Registriert\ ein\ neues\ Auftragsobjekt\ in\ der\ Warteschlange\ fuer\ die\ Fertigung.\n\ *\ @param\ bestellung\ Das\ Objekt,\ das\ in\ die\ Produktion\ aufgenommen\ werden\ soll.\n
+comment3.params=
+comment3.target=java.util.LinkedList\ getZuVerarbeitendeBestellungen()
+comment4.params=
+comment4.target=java.util.LinkedList\ getBestellungenInProduktion()
+comment5.params=
+comment5.target=void\ run()
+comment5.text=\n\ Kernprozess\ des\ Managers.\n\ *\ Entnimmt\ Auftraege\ aus\ der\ Schlange,\ validiert\ die\ Materialbestaende,\ \n\ initiiert\ die\ Fertigungsschritte\ und\ kontrolliert\ den\ Fortschritt\ \n\ bis\ zum\ Abschluss.\n
+comment6.params=bestellung
+comment6.target=void\ starteProduktion(Bestellung)
+comment6.text=\n\ Setzt\ die\ Fertigungsschritte\ fuer\ einen\ spezifischen\ Auftrag\ in\ Gang.\n\ *\ @param\ bestellung\ Der\ zu\ produzierende\ Auftrag.\n
+comment7.params=produkt
+comment7.target=void\ RoboterZuweisen(Produkt)
+comment7.text=\n\ Definiert\ fuer\ ein\ Produkt\ die\ erforderliche\ Kette\ an\ Bearbeitungsstationen.\n\ Beruecksichtigt\ die\ theoretische\ Einbindung\ verschiedener\ Robotertypen.\n\ *\ @param\ produkt\ Das\ zu\ bearbeitende\ Objekt\ (Standard-\ oder\ Premiumvariante).\n
+comment8.params=
+comment8.target=Holzverarbeitungsroboter\ getHolzRoboter()
+numComments=9

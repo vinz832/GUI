@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=Produkt
+comment0.text=\n\ Dient\ als\ fundamentales\ Ger\u00FCst\ f\u00FCr\ alle\ G\u00FCter,\ die\ in\ der\ Fabrik\ hergestellt\ werden.\n\ Die\ Klasse\ kontrolliert\ den\ Fertigungsfortschritt\ sowie\ die\ Abfolge\ der\ Bearbeitungsschritte.\n\ *\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\n\ @21.12.2025\n
+comment1.params=
+comment1.target=Produkt()
+comment1.text=\n\ Default-Konstruktor,\ um\ eine\ neue\ Produktinstanz\ zu\ erstellen.\n
+comment2.params=neuerZustand
+comment2.target=void\ zustandAendern(int)
+comment2.text=\n\ Passt\ den\ aktuellen\ Bearbeitungsstatus\ des\ Objekts\ an.\n\ Zul\u00E4ssige\ Kennziffern\ sind\:\n\ 0\:\ Auftrag\ wurde\ empfangen\n\ 1\:\ Befindet\ sich\ in\ der\ Fertigung\n\ 2\:\ Herstellung\ ist\ abgeschlossen\n\ *\ Bei\ Werten\ ausserhalb\ des\ Bereichs\ 0\ bis\ 2\ wird\ eine\ Fehlermeldung\ ausgegeben.\n\ @param\ neuerZustand\ Der\ festzulegende\ Statuswert\ (0,\ 1\ oder\ 2).\n
+comment3.params=
+comment3.target=int\ aktuellerZustand()
+comment3.text=\n\ Ruft\ die\ aktuelle\ Kennziffer\ des\ Fertigungsstandes\ ab.\n\ R\u00FCckgabewerte\:\ 0\ (Bestellung),\ 1\ (Produktion),\ 2\ (Abgeschlossen).\n\ @return\ Ganzzahl,\ die\ den\ momentanen\ Zustand\ repr\u00E4sentiert.\n
+comment4.params=
+comment4.target=void\ Zustandausgeben()
+comment4.text=\n\ Gibt\ eine\ Klartext-Information\ zum\ Bearbeitungsstand\ auf\ der\ Konsole\ aus.\n
+comment5.params=
+comment5.target=void\ naechsteProduktionsStation()
+comment5.text=\n\ \u00DCbermittelt\ das\ Objekt\ an\ die\ n\u00E4chste\ Station\ in\ der\ Fertigungskette.\n\ Wenn\ keine\ weiteren\ Stationen\ in\ der\ Liste\ vorhanden\ sind,\ wird\ das\ Produkt\ \n\ als\ "Abgeschlossen"\ markiert.\n
+comment6.params=produktionsAblauf
+comment6.target=void\ setzeProduktionsAblauf(java.util.LinkedList)
+comment6.text=\n\ Konfiguriert\ die\ Kette\ der\ Arbeitsschritte\ durch\ eine\ Liste\ von\ Robotern.\n\ @param\ produktionsAblauf\ Eine\ LinkedList\ mit\ den\ Robotern\ f\u00FCr\ den\ Fertigungsprozess.\n
+comment7.params=
+comment7.target=java.util.LinkedList\ getProduktionsAblauf()
+comment7.text=\n\ Erm\u00F6glicht\ das\ Auslesen\ der\ hinterlegten\ Liste\ f\u00FCr\ die\ Produktionsschritte.\n\ @return\ Die\ verkettete\ Liste\ der\ zugeordneten\ Roboter-Stationen.\n
+numComments=8

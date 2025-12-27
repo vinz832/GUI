@@ -1,0 +1,26 @@
+#BlueJ class context
+comment0.target=RoboterTest
+comment0.text=\r\n\ Pruefinstanz\ fuer\ die\ Robotereinheiten.\r\n\ *\ Diese\ Testreihe\ konzentriert\ sich\ auf\ die\ Kernfunktionalitaeten\ der\ Basisklasse\ {Roboter}.\r\n\ Untersucht\ werden\ dabei\ das\ Management\ der\ Warteschlange,\ die\ Konfiguration\ der\ \r\n\ Fertigungsintervalle\ sowie\ die\ Reaktion\ auf\ bekannte\ und\ unbekannte\ Artikeltypen.\r\n\ *\ Da\ die\ Logik\ Bearbeitungsschritte\ mittels\ {sleep}\ simuliert,\ validieren\ diese\ Tests\ \r\n\ vorrangig\ Systemzustaende\ (z.\ B.\ den\ Pufferinhalt)\ und\ die\ fehlerfreie\ Ausfuehrung,\ \r\n\ anstatt\ millisekundengenaue\ Zeitmessungen\ durchzufuehren.\r\n\ *\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\r\n\ @21.12.2025\r\n
+comment1.params=
+comment1.target=RoboterTest()
+comment1.text=\r\n\ Standardkonstruktor\ fuer\ die\ Testklasse\ RoboterTest.\r\n
+comment2.params=
+comment2.target=void\ setUp()
+comment2.text=\r\n\ Vorbereitende\ Massnahmen\ vor\ jedem\ einzelnen\ Testdurchlauf.\r\n
+comment3.params=
+comment3.target=void\ tearDown()
+comment3.text=\r\n\ Bereinigungsroutinen\ und\ Ergebnisausgabe\ nach\ Abschluss\ eines\ Tests.\r\n
+comment4.params=
+comment4.target=void\ testeProduziereStandardtuer()
+comment5.params=
+comment5.target=void\ testeProduzierePremiumtuer()
+comment5.text=\r\n\ Untersucht\ die\ Fertigungssimulation\ fuer\ ein\ Luxusmodell\ ({Premiumtuer}).\r\n\ *\ Ablauf\:\r\n\ -\ Festlegen\ einer\ Bearbeitungsdauer\ fuer\ Premiummodelle.\r\n\ -\ Instanziierung\ einer\ Premiumtuer\ und\ Aufruf\ von\ {Roboter\#produziereProdukt(Produkt)}.\r\n\ *\ Erwartung\:\r\n\ -\ Die\ Methode\ wird\ stabil\ und\ ohne\ Fehlermeldungen\ ausgefuehrt.\r\n\ -\ Keine\ praezise\ Zeitkontrolle,\ da\ die\ Produktion\ lediglich\ per\ sleep\ simuliert\ wird.\r\n
+comment6.params=
+comment6.target=void\ testeProduktionszeitSetzen()
+comment7.params=
+comment7.target=void\ testeUnbekanntesProdukt()
+comment7.text=\r\n\ Diese\ Pruefung\ analysiert\ das\ Systemverhalten,\ wenn\ der\ Roboter\ mit\ einem\ \r\n\ nicht\ identifizierbaren\ Artikel\ konfrontiert\ wird.\ \r\n
+comment8.params=
+comment8.target=void\ testeWarteschlange()
+comment8.text=\r\n\ Kontrolliert,\ ob\ die\ Methode\ {Roboter\#fuegeProduktHinzu(Produkt)}\ Artikel\ \r\n\ korrekt\ in\ den\ Puffer\ einspeist.\r\n\ *\ Erwartung\:\r\n\ -\ Der\ Puffer\ enthaelt\ im\ Anschluss\ exakt\ einen\ Eintrag.\r\n\ -\ Das\ hinzugefuegte\ Element\ befindet\ sich\ an\ der\ vordersten\ Position\ (peek).\r\n
+numComments=9

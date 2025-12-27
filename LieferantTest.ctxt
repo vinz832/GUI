@@ -1,0 +1,25 @@
+#BlueJ class context
+comment0.target=LieferantTest
+comment0.text=\n\ Diese\ Pruefklasse\ LieferantTest\ f\u00FChrt\ diverse\ Testdurchl\u00E4ufe\ aus,\ um\ die\ Systemfunktionen\ zu\ validieren.\n\ Dabei\ werden\ verschiedene\ Abl\u00E4ufe\ erprobt,\ um\ sicherzustellen,\ dass\ Warenanforderungen\ korrekt\ \n\ verarbeitet\ werden\ und\ fehlerhafte\ Angaben\ eine\ angemessene\ Systemreaktion\ sowie\ Kommunikation\ ausl\u00F6sen.\n\ *\ Die\ Untersuchung\ beinhaltet\ sowohl\ regul\u00E4re\ Erfolgsszenarien\ als\ auch\ fehlerbehaftete\ Konstellationen.\n\ *\ Das\ Hauptziel\ dieser\ Klasse\ ist\ die\ Verifizierung\ der\ Basisfunktionen,\ um\ einen\ stabilen\ \n\ und\ zuverl\u00E4ssigen\ Betrieb\ der\ Anwendung\ zu\ gew\u00E4hrleisten.\n\ *\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\n\ @21.12.2025\n
+comment1.params=
+comment1.target=LieferantTest()
+comment1.text=\n\ Konstruktor\ der\ Testumgebung\ LieferantTest.\n\ Bereitet\ die\ grundlegenden\ Strukturen\ vor,\ die\ f\u00FCr\ s\u00E4mtliche\ Tests\ ben\u00F6tigt\ werden.\n
+comment2.params=
+comment2.target=void\ setUp()
+comment2.text=\n\ Initialisiert\ die\ Testbedingungen\ vor\ jedem\ einzelnen\ Durchlauf.\n\ Legt\ fest,\ welche\ Schritte\ unmittelbar\ vor\ dem\ Teststart\ ausgef\u00FChrt\ werden.\n
+comment3.params=
+comment3.target=void\ tearDown()
+comment3.text=\n\ Definiert\ die\ Abschlussarbeiten\ nach\ jedem\ Testdurchlauf.\n
+comment4.params=
+comment4.target=void\ testeWareBestellenErfolgreich()
+comment5.params=
+comment5.target=void\ testWareBestellenMitNullWerten()
+comment6.params=
+comment6.target=void\ testWareBestellenMitNegativenWerten()
+comment7.params=
+comment7.target=void\ testWareBestellenMitMaximalWerten()
+comment8.params=
+comment8.target=void\ testWareBestellenMitMinimaleWerten()
+comment9.params=
+comment9.target=void\ testUnvollstaendigeBestellung()
+numComments=10

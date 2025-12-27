@@ -1,0 +1,22 @@
+#BlueJ class context
+comment0.target=HolzverarbeitungsroboterTest
+comment0.text=\r\n\ Die\ Pruefinstanz\ HolzverarbeitungsroboterTest\ dient\ der\ Validierung\ verschiedener\ \r\n\ Betriebszustaende\ und\ Ablaeufe.\ Es\ werden\ diverse\ Pruefszenarien\ durchlaufen,\ \r\n\ um\ die\ fehlerfreie\ Abwicklung\ von\ Auftraegen\ sicherzustellen\ und\ eine\ korrekte\ \r\n\ Systemreaktion\ auf\ fehlerhafte\ Eingaben\ sowie\ deren\ Kommunikation\ zu\ verifizieren.\r\n\ Ergaenzend\ dazu\ umfasst\ diese\ Testsuite\ zeitkritische\ Messungen\ fuer\ die\ \r\n\ Bearbeitungsprozesse\ von\ Standard-\ und\ Premiummodellen.\r\n\r\n\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\r\n\ @21.12.2025\r\n
+comment1.params=
+comment1.target=HolzverarbeitungsroboterTest()
+comment1.text=\r\n\ Standardkonstruktor\ fuer\ die\ Testklasse\ HolzverarbeitungsroboterTest.\r\n
+comment2.params=
+comment2.target=void\ setUp()
+comment2.text=\r\n\ Vorbereitende\ Massnahmen\ vor\ jedem\ einzelnen\ Pruefdurchgang.\r\n
+comment3.params=
+comment3.target=void\ tearDown()
+comment3.text=\r\n\ Abschlussroutinen\ und\ Konsolenausgabe\ nach\ Beendigung\ eines\ Testlaufs.\r\n
+comment4.params=
+comment4.target=void\ testeRoboterInitialisierung()
+comment4.text=\r\n\ Validiert\ die\ korrekte\ Erzeugung\ des\ Roboters\ sowie\ die\ Funktionalitaet\ der\ Namensabfrage.\r\n
+comment5.params=
+comment5.target=void\ testeProduziereProduktStandardtuer()
+comment5.text=\r\n\ Untersucht\ den\ Bearbeitungsvorgang\ eines\ Standardmodells\ durch\ die\ Robotereinheit.\r\n\r\n\ Absicht\:\ Bestaetigen,\ dass\ die\ Methode\ {Holzverarbeitungsroboter\#produziereProdukt(Produkt)}\ \r\n\ fuer\ eine\ {Standardtuer}\ ein\ Zeitintervall\ simuliert,\ welches\ den\ projektweiten\ \r\n\ Vorgaben\ entspricht.\r\n\r\n\ Durchf\u00FChrung\:\ Der\ Test\ ermittelt\ die\ tatsaechlich\ verbrauchte\ Zeit\ waehrend\ des\ \r\n\ Aufrufs\ mittels\ {System.currentTimeMillis()}\ und\ gleicht\ diese\ mit\ einem\ \r\n\ definierten\ Akzeptanzbereich\ ab.\r\n\r\n\ Bemerkung\:\ Da\ die\ Simulation\ auf\ {Thread.sleep(...)}\ basiert,\ koennen\ durch\ \r\n\ Hintergrundlast\ des\ Betriebssystems\ geringfuegige\ Schwankungen\ auftreten.\ \r\n\ Die\ Spanne\ von\ 6000\ bis\ 7000\ ms\ dient\ daher\ als\ bewusster\ Toleranzrahmen.\r\n
+comment6.params=
+comment6.target=void\ testeProduziereProduktPremiumtuer()
+comment6.text=\r\n\ Untersucht\ den\ Bearbeitungsvorgang\ eines\ Premiummodells\ durch\ die\ Robotereinheit.\r\n\r\n\ Absicht\:\ Verifizieren,\ dass\ bei\ einer\ {Premiumtuer}\ die\ verlaengerte\ Fertigungsdauer\ \r\n\ im\ Vergleich\ zum\ Standardmodell\ praezise\ abgebildet\ wird.\r\n\r\n\ Durchf\u00FChrung\:\ Analog\ zum\ Test\ des\ Basismodells\ wird\ die\ Zeitdifferenz\ gemessen\ \r\n\ und\ innerhalb\ eines\ definierten\ Rahmens\ validiert.\r\n\r\n\ Bemerkung\:\ Zeitabhaengige\ Pruefungen\ koennen\ nicht-deterministisches\ Verhalten\ aufweisen.\ \r\n\ Vor\ allem\ bei\ hoher\ Prozessorauslastung\ kann\ die\ Dauer\ leicht\ nach\ oben\ abweichen.\ \r\n\ Das\ Intervall\ von\ 18000\ bis\ 19000\ ms\ fungiert\ hierbei\ als\ notwendiger\ Puffer.\r\n
+numComments=7

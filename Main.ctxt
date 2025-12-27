@@ -1,0 +1,6 @@
+#BlueJ class context
+comment0.target=Main
+comment0.text=\n\ Die\ Klasse\ Main\ fungiert\ als\ zentraler\ Einstiegspunkt\ der\ Anwendung.\n\ In\ diesem\ Modul\ ist\ die\ Main-Methode\ implementiert,\ welche\ den\ Programmablauf\ initiiert.\n\n\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\n\ @21.12.2025\n
+comment1.params=args
+comment1.target=void\ main(java.lang.String[])
+numComments=2
