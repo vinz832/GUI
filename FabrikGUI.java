@@ -214,6 +214,9 @@ public class FabrikGUI {
         Lager lager = fabrik.gibLager();
         JDialog dlg = new JDialog(frame, "Nachbestellung", true);
         dlg.setLayout(new BorderLayout(8,8));
+        dlg.setName("dlgNachbestellung");
+        // Sichtbarkeit fürs Testen steuern: in Headless/Tests nicht modal/visible
+        dlg.setModal(showFrameUi);
         lastDialog = dlg;
 
         // Tabs: Nachbestellen + Historie
@@ -278,7 +281,9 @@ public class FabrikGUI {
 
         dlg.setSize(new Dimension(640, 400));
         dlg.setLocationRelativeTo(frame);
-        dlg.setVisible(true);
+        if (showFrameUi) {
+            dlg.setVisible(true);
+        }
     }
 
     private void openMaschinenparkDialog() {
@@ -291,6 +296,21 @@ public class FabrikGUI {
 
         // Tab: Übersicht
         JPanel overview = new JPanel(new BorderLayout(8,8));
+        JPanel emergencyPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        JButton btnStopAll = new JButton("Notfall-Stop");
+        btnStopAll.setName("btnStopAll");
+        btnStopAll.setBackground(Color.RED);
+        btnStopAll.setForeground(Color.WHITE);
+        JButton btnStartAll = new JButton("Produktion starten");
+        btnStartAll.setName("btnStartAll");
+        btnStartAll.setBackground(new Color(0,128,0));
+        btnStartAll.setForeground(Color.WHITE);
+        JLabel lblSystemStatus = new JLabel("Systemstatus: Normalbetrieb");
+        lblSystemStatus.setName("lblSystemStatus");
+        emergencyPanel.add(btnStopAll);
+        emergencyPanel.add(btnStartAll);
+        emergencyPanel.add(lblSystemStatus);
+        overview.add(emergencyPanel, BorderLayout.NORTH);
         java.util.List<Roboter> robots = pm != null ? pm.gibMaschinenpark() : java.util.Collections.emptyList();
         DefaultListModel<Roboter> robotModel = new DefaultListModel<>();
         for (Roboter r : robots) robotModel.addElement(r);
@@ -323,13 +343,18 @@ public class FabrikGUI {
         dc.gridx=0; dc.gridy=1; detail.add(dYear, dc);
         dc.gridx=0; dc.gridy=2; detail.add(dQueue, dc);
         dc.gridx=0; dc.gridy=3; detail.add(dState, dc);
+        JLabel dCurrent = new JLabel("Aktuelles Produkt: -");
+        JProgressBar dProgress = new JProgressBar(0, 100);
+        dProgress.setStringPainted(true);
+        dc.gridx=0; dc.gridy=4; dc.fill=GridBagConstraints.NONE; dc.weightx=0; detail.add(dCurrent, dc);
+        dc.gridx=1; dc.gridy=4; dc.fill=GridBagConstraints.HORIZONTAL; dc.weightx=1.0; detail.add(dProgress, dc);
         // Tabelle: Service-Historie
         String[] svcCols = {"Zeit", "Person", "Notiz"};
         DefaultTableModel svcModel = new DefaultTableModel(svcCols,0){ public boolean isCellEditable(int r,int c){return false;} };
         JTable svcTable = new JTable(svcModel);
         JScrollPane svcScroll = new JScrollPane(svcTable);
         svcScroll.setBorder(BorderFactory.createTitledBorder("Service-Historie"));
-        dc.gridx=0; dc.gridy=4; dc.gridwidth=2; dc.fill=GridBagConstraints.BOTH; dc.weightx=1.0; dc.weighty=1.0; detail.add(svcScroll, dc);
+        dc.gridx=0; dc.gridy=5; dc.gridwidth=2; dc.fill=GridBagConstraints.BOTH; dc.weightx=1.0; dc.weighty=1.0; detail.add(svcScroll, dc);
 
         // Eingabefelder zum Hinzufügen eines Service-Eintrags
         JTextField tfPerson = new JTextField(18); tfPerson.setName("tfServicePerson");
@@ -341,7 +366,7 @@ public class FabrikGUI {
         addSvcPanel.add(new JLabel("Notiz:")); addSvcPanel.add(tfNote);
         addSvcPanel.add(btnAddSvc);
         addSvcPanel.add(btnToggle);
-        dc.gridx=0; dc.gridy=5; dc.gridwidth=2; dc.fill=GridBagConstraints.HORIZONTAL; dc.weightx=0; dc.weighty=0; detail.add(addSvcPanel, dc);
+        dc.gridx=0; dc.gridy=6; dc.gridwidth=2; dc.fill=GridBagConstraints.HORIZONTAL; dc.weightx=0; dc.weighty=0; detail.add(addSvcPanel, dc);
 
         overview.add(detail, BorderLayout.CENTER);
 
@@ -349,7 +374,7 @@ public class FabrikGUI {
         robotList.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 current[0] = robotList.getSelectedValue();
-                refreshRobotDetail(current[0], dName, dYear, dQueue, dState, svcModel);
+                refreshRobotDetail(current[0], dName, dYear, dQueue, dState, dCurrent, dProgress, svcModel);
                 btnToggle.setText(current[0] != null && current[0].istPausiert()? "Start" : "Pause");
             }
         });
@@ -358,7 +383,7 @@ public class FabrikGUI {
         if (robotModel.getSize() > 0) {
             robotList.setSelectedIndex(0);
             current[0] = robotModel.getElementAt(0);
-            refreshRobotDetail(current[0], dName, dYear, dQueue, dState, svcModel);
+            refreshRobotDetail(current[0], dName, dYear, dQueue, dState, dCurrent, dProgress, svcModel);
             btnToggle.setText(current[0] != null && current[0].istPausiert()? "Start" : "Pause");
         }
 
@@ -378,7 +403,7 @@ public class FabrikGUI {
             }
             r.fuegeServiceEintragHinzu(person, note);
             tfPerson.setText(""); tfNote.setText("");
-            refreshRobotDetail(r, dName, dYear, dQueue, dState, svcModel);
+            refreshRobotDetail(r, dName, dYear, dQueue, dState, dCurrent, dProgress, svcModel);
         });
 
         btnToggle.addActionListener(e -> {
@@ -386,9 +411,18 @@ public class FabrikGUI {
             if (r == null) return;
             r.setzePausiert(!r.istPausiert());
             btnToggle.setText(r.istPausiert()? "Start" : "Pause");
-            refreshRobotDetail(r, dName, dYear, dQueue, dState, svcModel);
+            refreshRobotDetail(r, dName, dYear, dQueue, dState, dCurrent, dProgress, svcModel);
             robotList.repaint();
         });
+
+        Runnable refreshEmergency = () -> {
+            boolean stop = pm != null && pm.istNotfallStopAktiv();
+            lblSystemStatus.setText(stop ? "Systemstatus: Notfall-Stop aktiv" : "Systemstatus: Normalbetrieb");
+            btnStopAll.setEnabled(!stop);
+            btnStartAll.setEnabled(stop);
+        };
+        btnStopAll.addActionListener(e -> { if (pm != null) { pm.aktiviereNotfallStop(); } refreshEmergency.run(); robotList.repaint(); });
+        btnStartAll.addActionListener(e -> { if (pm != null) { pm.hebeNotfallStopAuf(); } refreshEmergency.run(); robotList.repaint(); });
 
         tabs.addTab("Übersicht", overview);
 
@@ -452,8 +486,9 @@ public class FabrikGUI {
         javax.swing.Timer mpTimer = new javax.swing.Timer(1000, ev -> {
             robotList.repaint();
             if (current[0] != null) {
-                refreshRobotDetail(current[0], dName, dYear, dQueue, dState, svcModel);
+                refreshRobotDetail(current[0], dName, dYear, dQueue, dState, dCurrent, dProgress, svcModel);
             }
+            refreshEmergency.run();
         });
         mpTimer.start();
 
@@ -465,13 +500,20 @@ public class FabrikGUI {
     public JFrame getFrame() { return frame; }
     public JDialog getLastDialog() { return lastDialog; }
 
-    private void refreshRobotDetail(Roboter r, JLabel dName, JLabel dYear, JLabel dQueue, JLabel dState, DefaultTableModel svcModel) {
-        if (r == null) { dName.setText("Name: -"); dYear.setText("Produktionsjahr: -"); dQueue.setText("Warteschlange: -"); dState.setText("Status: -"); svcModel.setRowCount(0); return; }
+    private void refreshRobotDetail(Roboter r, JLabel dName, JLabel dYear, JLabel dQueue, JLabel dState, JLabel dCurrent, JProgressBar dProgress, DefaultTableModel svcModel) {
+        if (r == null) {
+            dName.setText("Name: -"); dYear.setText("Produktionsjahr: -"); dQueue.setText("Warteschlange: -"); dState.setText("Status: -");
+            if (dCurrent != null) dCurrent.setText("Aktuelles Produkt: -"); if (dProgress != null) { dProgress.setValue(0); dProgress.setString("0%"); }
+            svcModel.setRowCount(0); return;
+        }
         dName.setText("Name: " + r.gibNamen());
         dYear.setText("Produktionsjahr: " + r.gibProduktionsJahr());
         int q = r.getWarteschlange()!=null? r.getWarteschlange().size():0;
         dQueue.setText("Warteschlange: " + q);
         dState.setText("Status: " + (r.istPausiert()? "Pausiert" : "Aktiv"));
+        String cur = r.gibAktuellesProduktName();
+        if (cur == null) { dCurrent.setText("Aktuelles Produkt: -"); dProgress.setValue(0); dProgress.setString("-"); }
+        else { dCurrent.setText("Aktuelles Produkt: " + cur); int pct = r.gibAktuellenFortschrittProzent(); dProgress.setValue(pct); dProgress.setString(pct + "%"); }
         java.util.List<ServiceEntry> svcs = r.gibServiceHistorie();
         svcModel.setRowCount(0);
         java.text.SimpleDateFormat fmt = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm");

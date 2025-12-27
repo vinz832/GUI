@@ -21,6 +21,7 @@ public class Produktionsmanager extends Thread
      
      private Fabrik meineFabrik;
      private Lager meinLager;
+    private volatile boolean notfallStop = false;
      
     // Strukturen zur Organisation der Auftragsablaeufe
      private LinkedList<Bestellung> zuVerarbeitendeBestellungen; // Schlange fuer anstehende Auftraege
@@ -88,6 +89,10 @@ public class Produktionsmanager extends Thread
     public void run(){
         ThreadUtil.synchronisiertesPrintln("Der Produktionsmanager nimmt die Arbeit auf.");
             while(true){
+                if (notfallStop) {
+                    try { Thread.sleep(300); } catch (InterruptedException ignore) {}
+                    continue;
+                }
                 // Pruefen, ob ein neuer Auftrag zur Bearbeitung ansteht
             Bestellung naechsteBestellung = zuVerarbeitendeBestellungen.peek();
                 if (naechsteBestellung != null) {
@@ -142,6 +147,25 @@ public class Produktionsmanager extends Thread
                     ie.printStackTrace();
                 }
             }
+    }
+    /** Aktiviert den globalen Notfall-Stop: pausiert alle Roboter und stoppt die Bearbeitung. */
+    public synchronized void aktiviereNotfallStop() {
+        notfallStop = true;
+        setzePauseFuerAlleRoboter(true);
+    }
+    /** Hebt den globalen Notfall-Stop auf: setzt alle Roboter fort. */
+    public synchronized void hebeNotfallStopAuf() {
+        notfallStop = false;
+        setzePauseFuerAlleRoboter(false);
+    }
+    /** Liefert den aktuellen Notfall-Status. */
+    public boolean istNotfallStopAktiv() { return notfallStop; }
+    /** Pausiert oder startet alle registrierten Roboter. */
+    private void setzePauseFuerAlleRoboter(boolean pausiert) {
+        try { holzRoboter.setzePausiert(pausiert); } catch (Exception ignore) {}
+        for (Roboter r : maschinenpark) {
+            try { r.setzePausiert(pausiert); } catch (Exception ignore) {}
+        }
     }
 
     /**
