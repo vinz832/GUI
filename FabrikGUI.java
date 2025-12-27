@@ -14,6 +14,7 @@ public class FabrikGUI {
     private JDialog lastDialog;
     private JTextField tfStandard;
     private JTextField tfPremium;
+    private JTextField tfKundeNr;
     private JTable table;
     private DefaultTableModel tableModel;
     private JLabel lblHolz, lblSchrauben, lblFarbe, lblGlas, lblKarton, lblLieferant, lblQueue, lblInProd;
@@ -28,6 +29,18 @@ public class FabrikGUI {
     // Restocking history model (shown in Nachbestellung-Dialog)
     private JTable histTable;
     private DefaultTableModel histModel;
+    // Kunden-UI Felder für Tests
+    private DefaultTableModel kundenTableModel;
+    private JTable kundenTable;
+    private JButton btnSaveCustomer;
+    private JButton btnNewCustomer;
+    private JButton btnOrder;
+    // Kundenverwaltung: Historie und Auswahl
+    private DefaultTableModel historieModel;
+    private JTable historieTable;
+    private Integer selectedKundenNr = null;
+    private JTabbedPane kundenTabs;
+    private javax.swing.Timer kundenRefreshTimer;
 
     public FabrikGUI() {
         this(new Fabrik(), true);
@@ -81,6 +94,13 @@ public class FabrikGUI {
         mpOpen.addActionListener(e -> openMaschinenparkDialog());
         mpMenu.add(mpOpen);
         menuBar.add(mpMenu);
+        // Kunden top-level menu
+        JMenu kundenMenu = new JMenu("Kunden");
+        JMenuItem miKunden = new JMenuItem("Übersicht");
+        miKunden.setName("miKundenUebersicht");
+        miKunden.addActionListener(e -> openKundenDialog());
+        kundenMenu.add(miKunden);
+        menuBar.add(kundenMenu);
         frame.setJMenuBar(menuBar);
 
         // WEST: Auftragseingabe
@@ -104,11 +124,15 @@ public class FabrikGUI {
         tfPremium = new JTextField(8);
         tfPremium.setName("tfPremium");
         c.gridx=1; c.gridy=2; west.add(tfPremium, c);
+        c.gridx=0; c.gridy=3; west.add(new JLabel("Kundennummer:"), c);
+        tfKundeNr = new JTextField(8);
+        tfKundeNr.setName("tfKundenNr");
+        c.gridx=1; c.gridy=3; west.add(tfKundeNr, c);
 
-        JButton btnOrder = new JButton("Bestellung aufgeben");
+        btnOrder = new JButton("Bestellung aufgeben");
         btnOrder.setName("btnBestellungAufgeben");
         btnOrder.addActionListener(e -> submitOrder());
-        c.gridx=0; c.gridy=3; c.gridwidth=2; c.fill = GridBagConstraints.HORIZONTAL; west.add(btnOrder, c);
+        c.gridx=0; c.gridy=4; c.gridwidth=2; c.fill = GridBagConstraints.HORIZONTAL; west.add(btnOrder, c);
 
         // Der Storno-Button wird künftig pro Zeile in der Tabelle angezeigt
 
@@ -506,6 +530,9 @@ public class FabrikGUI {
     // Debug/Tests: Zugriff auf den Frame und zuletzt geöffneten Dialog
     public JFrame getFrame() { return frame; }
     public JDialog getLastDialog() { return lastDialog; }
+    public JButton getBtnOrder() { return btnOrder; }
+    public JButton getBtnSaveCustomer() { return btnSaveCustomer; }
+    public JButton getBtnNewCustomer() { return btnNewCustomer; }
 
     private void refreshRobotDetail(Roboter r, JLabel dName, JLabel dYear, JLabel dQueue, JLabel dState, JLabel dCurrent, JProgressBar dProgress, DefaultTableModel svcModel) {
         if (r == null) {
@@ -533,19 +560,30 @@ public class FabrikGUI {
         try {
             String sStd = tfStandard.getText().trim();
             String sPrem = tfPremium.getText().trim();
+            String sKnr = tfKundeNr.getText().trim();
             if (sStd.isEmpty() || sPrem.isEmpty()) {
                 JOptionPane.showMessageDialog(frame, "Bitte beide Felder ausfüllen.", "Eingabefehler", JOptionPane.ERROR_MESSAGE);
                 return;
             }
+            if (sKnr.isEmpty()) {
+                JOptionPane.showMessageDialog(frame, "Bitte Kundennummer angeben.", "Eingabefehler", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
             int std = Integer.parseInt(sStd);
             int prem = Integer.parseInt(sPrem);
+            int knr = Integer.parseInt(sKnr);
             if (std < 0 || prem < 0) {
                 JOptionPane.showMessageDialog(frame, "Negative Zahlen sind nicht erlaubt.", "Eingabefehler", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            fabrik.bestellungAufgeben(std, prem);
+            if (fabrik.gibKundenDb().findeKunde(knr) == null) {
+                JOptionPane.showMessageDialog(frame, "Kundennummer existiert nicht.", "Eingabefehler", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+            fabrik.bestellungAufgeben(knr, std, prem);
             tfStandard.setText("");
             tfPremium.setText("");
+            tfKundeNr.setText("");
         } catch (NumberFormatException nfe) {
             JOptionPane.showMessageDialog(frame, "Ungültige Zahleneingabe.", "Eingabefehler", JOptionPane.ERROR_MESSAGE);
         } catch (Exception ex) {
@@ -832,5 +870,163 @@ public class FabrikGUI {
             } catch (Exception ignore) {}
             new FabrikGUI();
         });
+    }
+
+    private void openKundenDialog() {
+        JDialog dlg = new JDialog(frame, "Kundenverwaltung", true);
+        dlg.setLayout(new BorderLayout(8,8));
+        dlg.setName("dlgKunden");
+        dlg.setModal(showFrameUi);
+        lastDialog = dlg;
+
+        JTabbedPane tabs = new JTabbedPane();
+        this.kundenTabs = tabs;
+
+        // Tab: Übersicht
+        JPanel overview = new JPanel(new BorderLayout(8,8));
+        String[] cols = {"Kundennummer", "Name", "Firma", "Position"};
+        kundenTableModel = new DefaultTableModel(cols, 0) {
+            public boolean isCellEditable(int r, int c) { return c != 0; }
+        };
+        kundenTable = new JTable(kundenTableModel);
+        kundenTable.setName("tblKunden");
+        JScrollPane sp = new JScrollPane(kundenTable);
+        overview.add(sp, BorderLayout.CENTER);
+        JPanel actions = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        btnNewCustomer = new JButton("Neuer Kunde…");
+        btnNewCustomer.setName("btnKundenNeu");
+        btnSaveCustomer = new JButton("Speichern");
+        btnSaveCustomer.setName("btnKundenSpeichern");
+        actions.add(btnNewCustomer);
+        actions.add(btnSaveCustomer);
+        overview.add(actions, BorderLayout.SOUTH);
+        tabs.addTab("Übersicht", overview);
+
+        // Historie unten (optional eigener Tab)
+        String[] hCols = {"Bestellnummer", "Standard", "Premium", "Lieferzeit", "Status", "Zeit"};
+        historieModel = new DefaultTableModel(hCols, 0) { public boolean isCellEditable(int r,int c){return false;} };
+        historieTable = new JTable(historieModel);
+        historieTable.setName("tblKundenHistorie");
+        JScrollPane hSp = new JScrollPane(historieTable);
+        tabs.addTab("Historie", hSp);
+
+        // Daten laden
+        refreshKundenTable();
+
+        // Auswahl -> Historie aktualisieren
+        kundenTable.getSelectionModel().addListSelectionListener(e -> {
+            if (e.getValueIsAdjusting()) return;
+            int row = kundenTable.getSelectedRow();
+            if (row < 0) {
+                selectedKundenNr = null;
+                historieModel.setRowCount(0);
+                return;
+            }
+            int modelRow = kundenTable.convertRowIndexToModel(row);
+            Object nrObj = kundenTable.getModel().getValueAt(modelRow, 0);
+            int knr = Integer.parseInt(String.valueOf(nrObj));
+            selectedKundenNr = knr;
+            refreshHistorieFor(knr);
+            kundenTabs.setSelectedIndex(1);
+        });
+
+        // Aktionen
+        btnNewCustomer.addActionListener(e -> openNeuerKundeDialog());
+        btnSaveCustomer.addActionListener(e -> {
+            try {
+                for (int r = 0; r < kundenTableModel.getRowCount(); r++) {
+                    int knr = Integer.parseInt(String.valueOf(kundenTableModel.getValueAt(r, 0)));
+                    Kunde existing = fabrik.gibKundenDb().findeKunde(knr);
+                    if (existing != null) {
+                        String name = String.valueOf(kundenTableModel.getValueAt(r, 1));
+                        String firma = String.valueOf(kundenTableModel.getValueAt(r, 2));
+                        String pos = String.valueOf(kundenTableModel.getValueAt(r, 3));
+                        existing.setzeName(name);
+                        existing.setzeFirma(firma);
+                        existing.setzePosition(pos);
+                        fabrik.gibKundenDb().kundeAktualisieren(existing);
+                    }
+                }
+                JOptionPane.showMessageDialog(dlg, "Kunden gespeichert.");
+                refreshKundenTable();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(dlg, "Fehler beim Speichern: " + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+            }
+        });
+
+        dlg.add(tabs, BorderLayout.CENTER);
+        dlg.setSize(new Dimension(700, 450));
+        dlg.setLocationRelativeTo(frame);
+        // Live-Update-Timer (optional empfohlen)
+        kundenRefreshTimer = new javax.swing.Timer(1000, ev -> {
+            if (selectedKundenNr != null) refreshHistorieFor(selectedKundenNr.intValue());
+        });
+        kundenRefreshTimer.start();
+        dlg.addWindowListener(new java.awt.event.WindowAdapter(){
+            @Override public void windowClosed(java.awt.event.WindowEvent e){ if (kundenRefreshTimer != null) kundenRefreshTimer.stop(); }
+            @Override public void windowClosing(java.awt.event.WindowEvent e){ if (kundenRefreshTimer != null) kundenRefreshTimer.stop(); }
+        });
+        if (showFrameUi) dlg.setVisible(true);
+    }
+
+    /** Befüllt die Historie-Tabelle für einen Kunden. */
+    private void refreshHistorieFor(int kundenNr) {
+        java.util.List<Bestellung> list = fabrik.gibBestellungenFuerKunde(kundenNr);
+        historieModel.setRowCount(0);
+        java.text.SimpleDateFormat fmt = new java.text.SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        for (Bestellung b : list) {
+            String lt = b.gibLieferzeit() > 0 ? String.format("%.2f", b.gibLieferzeit()) : "-";
+            String time = b.gibCreatedAt() > 0 ? fmt.format(new java.util.Date(b.gibCreatedAt())) : "-";
+            historieModel.addRow(new Object[]{
+                b.gibBestellNr(),
+                b.gibAnzahlStandardtueren(),
+                b.gibAnzahlPremiumtueren(),
+                lt,
+                b.gibStatusString(),
+                time
+            });
+        }
+        if (list.isEmpty()) {
+            // Optionaler Hinweis statt leerer Tabelle (einfacher Ansatz): nichts tun oder eine Zeile hinzufügen.
+            // Hier: leer lassen.
+        }
+    }
+
+    private void refreshKundenTable() {
+        kundenTableModel.setRowCount(0);
+        java.util.List<Kunde> alle = fabrik.gibKundenDb().gibAlleKunden();
+        for (Kunde k : alle) {
+            kundenTableModel.addRow(new Object[]{ k.gibKundenNr(), k.gibName(), k.gibFirma(), k.gibPosition() });
+        }
+    }
+
+    private void openNeuerKundeDialog() {
+        JDialog dlg = new JDialog(frame, "Neuer Kunde", true);
+        dlg.setLayout(new GridBagLayout());
+        dlg.setModal(showFrameUi);
+        GridBagConstraints c = new GridBagConstraints();
+        c.insets = new Insets(4,4,4,4);
+        c.anchor = GridBagConstraints.WEST;
+        JTextField tfName = new JTextField(16);
+        JTextField tfFirma = new JTextField(16);
+        JTextField tfPos = new JTextField(16);
+        int y = 0;
+        c.gridx=0; c.gridy=y; dlg.add(new JLabel("Name:"), c); c.gridx=1; dlg.add(tfName, c); y++;
+        c.gridx=0; c.gridy=y; dlg.add(new JLabel("Firma:"), c); c.gridx=1; dlg.add(tfFirma, c); y++;
+        c.gridx=0; c.gridy=y; dlg.add(new JLabel("Position:"), c); c.gridx=1; dlg.add(tfPos, c); y++;
+        JButton btnOk = new JButton("Anlegen");
+        btnOk.addActionListener(e -> {
+            String name = tfName.getText().trim();
+            String firma = tfFirma.getText().trim();
+            String pos = tfPos.getText().trim();
+            Kunde k = fabrik.kundeAnlegen(name, firma, pos);
+            refreshKundenTable();
+            JOptionPane.showMessageDialog(dlg, "Kunde angelegt: " + k);
+            dlg.dispose();
+        });
+        c.gridx=0; c.gridy=y; c.gridwidth=2; c.fill=GridBagConstraints.HORIZONTAL; dlg.add(btnOk, c);
+        dlg.pack();
+        dlg.setLocationRelativeTo(frame);
+        if (showFrameUi) dlg.setVisible(true);
     }
 }

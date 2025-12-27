@@ -14,6 +14,7 @@ public class Fabrik
     private int bestellNr; // Kontinuierlicher Zaehler zur eindeutigen Zuweisung von Bestellidentifikationen
     private Lager lager; // Die Lagerinstanz, welche die benoetigten Materialien bereitstellt
     private Produktionsmanager produktionsmanager; // Verantwortliche Einheit fuer die Steuerung der Fertigungsablaeufe
+    private KundenDatenbank kundenDb; // Verwaltung der Kunden
     
     private int lagerAuffuellungen; // Protokolliert die Haeufigkeit der Materialnachschuebe
     
@@ -27,10 +28,16 @@ public Fabrik() {
     bestellNr = 0; 
     lager = new Lager();
     lagerAuffuellungen = 0;
+    kundenDb = new KundenDatenbank();
         
     produktionsmanager = new Produktionsmanager(this, lager);
     produktionsmanager.setDaemon(true); // Daemon-Thread: blockiert das Programmende/Tests nicht trotz while(true)
     produktionsmanager.start();
+
+    // Demo-Kunde vorbefüllen
+    try {
+        kundenDb.kundeAnlegen("Max Muster", "SmartDoor GmbH", "Einkauf");
+    } catch (Exception ignore) {}
 }
     
 /**
@@ -39,6 +46,17 @@ public Fabrik() {
  */
 public ArrayList<Bestellung> gibBestellungen () {
         return this.bestellungen; // Rueckgabe des Listenobjekts
+    }
+
+    /**
+     * Liefert alle Bestellungen eines bestimmten Kunden.
+     */
+    public ArrayList<Bestellung> gibBestellungenFuerKunde(int kundenNr) {
+        ArrayList<Bestellung> res = new ArrayList<>();
+        for (Bestellung b : bestellungen) {
+            if (b.gibKundenNr() == kundenNr) { res.add(b); }
+        }
+        return res;
     }
     
     /**
@@ -83,6 +101,43 @@ public void bestellungAufgeben(int anzahlStandardtueren, int anzahlPremiumtueren
         }
         System.out.println("Aktuelle Anzahl Bestellungen: " + bestellungen.size());
 } 
+
+    /**
+     * Überladene Variante: Auftrag mit Kundennummer.
+     */
+    public void bestellungAufgeben(int kundenNr, int anzahlStandardtueren, int anzahlPremiumtueren) {
+        int beschaffungsZeit = -1;
+        bestellNr++;
+        float lieferzeit = -1;
+        Bestellung bestellung = new Bestellung(bestellNr, kundenNr, anzahlStandardtueren, anzahlPremiumtueren);
+
+        beschaffungsZeit = lager.gibBeschaffungsZeit(bestellung);
+
+        if (anzahlStandardtueren > 20 || anzahlPremiumtueren > 100){
+            System.out.println("Ihre Bestellung konnte nicht getätigt werden. Sie haben zu viele Produkte bestellt. ");
+            bestellNr--;
+        } else if (anzahlStandardtueren < 0 || anzahlPremiumtueren < 0){
+            System.out.println("Ihre Bestellung konnte nicht getätigt werden aufgrund negativer Werte. Bitte positive Werte eingeben. ");
+            bestellNr--;
+        } else if (anzahlStandardtueren == 0 && anzahlPremiumtueren == 0){
+            System.out.println("Ihre Bestellung konnte nicht getätigt werden. Die Bestellmenge für mindestens ein Produkt muss positiv sein. ");
+            bestellNr--;
+        } else {
+            if (!lager.hatGenugMaterial(bestellung)){
+                System.out.println("Hat genug Material auf Lager. Lager wird aufgefüllt.");
+                lagerAuffuellen();
+            }
+            bestellung.setzeBeschaffungsZeit(beschaffungsZeit);
+            lieferzeit = gibLieferzeit(beschaffungsZeit, anzahlStandardtueren, anzahlPremiumtueren);
+            bestellung.setzeLieferzeit(lieferzeit);
+            bestellung.bestellungBestaetigen();
+            bestellungen.add(bestellung);
+            System.out.println("Bestellung hinzugefügt: " + bestellung.gibBestellNr());
+            produktionsmanager.fuegeZuVerarbeitendeBestellungenHinzu(bestellung);
+            System.out.println("Bestellung aufgegeben!");
+        }
+        System.out.println("Aktuelle Anzahl Bestellungen: " + bestellungen.size());
+    }
         
 /**
  * Listet alle aktuell im System befindlichen Auftraege auf.
@@ -142,6 +197,17 @@ public void bestellungAufgeben(int anzahlStandardtueren, int anzahlPremiumtueren
     public Lager gibLager() {
         return this.lager;
     }
+
+    /** Kunden-Datenbankzugriff. */
+    public KundenDatenbank gibKundenDb() { return this.kundenDb; }
+
+    /** Wrapper: neuen Kunden anlegen. */
+    public Kunde kundeAnlegen(String name, String firma, String position) {
+        return kundenDb.kundeAnlegen(name, firma, position);
+    }
+
+    /** Wrapper: Kunden suchen. */
+    public Kunde findeKunde(int kundenNr) { return kundenDb.findeKunde(kundenNr); }
 
     /** Optional getter for monitoring in GUI. */
     public Produktionsmanager gibProduktionsmanager() {

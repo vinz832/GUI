@@ -20,6 +20,8 @@ public class Bestellung
     private int anzahlStandardtueren; // Gesamtzahl der georderten Basismodelle
     private int anzahlPremiumtueren; // Gesamtzahl der georderten Edelmodelle
     private float lieferZeit; // Errechneter Zeitraum bis zur Fertigstellung und Zustellung
+    // Kundenbezug
+    private final int kundenNr;
     // Timestamps for KPI Durchlaufzeit (simulation time in millis)
     private long createdAt;
     private Long productionStartAt;
@@ -46,6 +48,7 @@ public class Bestellung
         this.bestellNr = bestellNr; // Festlegung der Auftrags-ID
         this.beschaffungsZeit = -1; // Initialwert vor der exakten Berechnung
         this.lieferZeit = -1; // Platzhalter fuer die Dauer der Auslieferung
+        this.kundenNr = 0; // Default, wenn keine Kundennummer übergeben wurde
         
         // Der Status fuer die Freigabe ist initial negativ, da die Validierung noch folgt
         this.bestellBestaetigung = false; 
@@ -56,6 +59,25 @@ public class Bestellung
         this.materialVerbraucht = false;
         this.storniert = false;
         fuelleBestellteprodukte(anzahlStandardtueren, anzahlPremiumtueren);  // Bestueckt die Liste gemaess der Order 
+    }
+
+    /**
+     * Erweiterter Konstruktor mit Kundennummer.
+     */
+    public Bestellung(int bestellNr, int kundenNr, int anzahlStandardtueren, int anzahlPremiumtueren) {
+        this.bestellteProdukte = new ArrayList<>();
+        this.bestellNr = bestellNr;
+        this.beschaffungsZeit = -1;
+        this.lieferZeit = -1;
+        this.kundenNr = kundenNr;
+        this.bestellBestaetigung = false;
+        this.alleProdukteProduziert = false;
+        this.anzahlStandardtueren = anzahlStandardtueren;
+        this.anzahlPremiumtueren = anzahlPremiumtueren;
+        this.createdAt = System.currentTimeMillis();
+        this.materialVerbraucht = false;
+        this.storniert = false;
+        fuelleBestellteprodukte(anzahlStandardtueren, anzahlPremiumtueren);
     }
 
     /**
@@ -123,6 +145,11 @@ public class Bestellung
     public int gibBestellNr() {
         return this.bestellNr;
     }
+
+    /**
+     * Liefert die Kundennummer dieser Bestellung (0 falls unbekannt).
+     */
+    public int gibKundenNr() { return this.kundenNr; }
     
     /**
      * Ruft den Zeitraum ab, der fuer den Materialeinkauf kalkuliert wurde.
@@ -202,8 +229,9 @@ public class Bestellung
     
     @Override
     public String toString() { // Erstellt eine kompakte Textreprasentation der Order
-        return "Bestellung: " + bestellNr + " | " + anzahlStandardtueren + " Standard, " + anzahlPremiumtueren + " Premium" + " | Beschaffungsdauer: " 
-        + beschaffungsZeit + " Tage ";
+        String kundeStr = (kundenNr > 0 ? (" | Kunde #" + kundenNr) : "");
+        return "Bestellung: " + bestellNr + " | " + anzahlStandardtueren + " Standard, " + anzahlPremiumtueren + " Premium" + " | Beschaffungsdauer: "
+                + beschaffungsZeit + " Tage" + kundeStr;
     }
     
     /**
