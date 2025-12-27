@@ -1,5 +1,6 @@
-import org.junit.jupiter.api.*;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.Test;
+import org.junit.BeforeClass;
+import static org.junit.Assert.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,13 +56,13 @@ public class FabrikGUIBackendTest {
         return null;
     }
 
-    @BeforeAll
-    static void headless() {
+    @BeforeClass
+    public static void headless() {
         System.setProperty("java.awt.headless", "true");
     }
 
     @Test
-    void submitOrder_calls_backend() throws Exception {
+    public void testSubmitOrderCallsBackend() throws Exception {
         FakeFabrik f = new FakeFabrik();
         FabrikGUI gui = new FabrikGUI(f, false);
         JFrame frame = gui.getFrame();
@@ -77,7 +78,7 @@ public class FabrikGUIBackendTest {
     }
 
     @Test
-    void menu_auffuellen_calls_lager() throws Exception {
+    public void testMenuAuffuellenCallsLager() throws Exception {
         FakeFabrik f = new FakeFabrik();
         FabrikGUI gui = new FabrikGUI(f, false);
         JMenuBar bar = gui.getFrame().getJMenuBar();
@@ -99,7 +100,7 @@ public class FabrikGUIBackendTest {
     }
 
     @Test
-    void nachbestellen_dialog_calls_manuelleNachbestellung() throws Exception {
+    public void testNachbestellenDialogCallsManuelleNachbestellung() throws Exception {
         FakeFabrik f = new FakeFabrik();
         FabrikGUI gui = new FabrikGUI(f, false);
         // Menü öffnen
@@ -137,7 +138,7 @@ public class FabrikGUIBackendTest {
     }
 
     @Test
-    void maschinenpark_service_and_pause() throws Exception {
+    public void testMaschinenparkServiceAndPause() throws Exception {
         FakeFabrik f = new FakeFabrik();
         FabrikGUI gui = new FabrikGUI(f, false);
         // Öffnen
