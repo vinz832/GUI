@@ -68,13 +68,15 @@ public class Roboter extends Thread {
     }
 
     private int berechneStationsDauer(Produkt produkt) {
+        // Verwende die konfigurierten Gesamtdauern direkt, damit die reale Produktionszeit
+        // (z. B. 6000ms fuer Standard / 18000ms fuer Premium bei WoodPecker) eingehalten wird.
         if (produkt instanceof Standardtuer) {
-            return Math.max(1, produktionsZeitStandardtuer / 4);
+            return Math.max(1, produktionsZeitStandardtuer);
         } else if (produkt instanceof Premiumtuer) {
-            return Math.max(1, produktionsZeitPremiumtuer / 4);
+            return Math.max(1, produktionsZeitPremiumtuer);
         } else {
             int basis = (produktionsZeit > 0 ? produktionsZeit : 1500);
-            return Math.max(1, basis / 4);
+            return Math.max(1, basis);
         }
     }
 
