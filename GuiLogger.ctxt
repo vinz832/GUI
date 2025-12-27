@@ -1,0 +1,11 @@
+#BlueJ class context
+comment0.target=GuiLogger
+comment0.text=\r\n\ Thread-safe\ GUI\ logger\ that\ appends\ messages\ into\ a\ JTextArea.\r\n\ Use\ via\ GuiLogger.setLogArea(textArea)\ and\ GuiLogger.log(msg).\r\n
+comment1.params=area
+comment1.target=void\ setLogArea(javax.swing.JTextArea)
+comment2.params=msg
+comment2.target=void\ log(java.lang.String)
+comment3.params=
+comment3.target=void\ hookSystemOutAndErr()
+comment3.text=Hook\ System.out\ and\ System.err\ to\ also\ append\ to\ the\ GUI\ log\ (and\ keep\ printing\ to\ console).
+numComments=4

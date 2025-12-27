@@ -17,6 +17,7 @@ public class Roboter extends Thread {
     private int produktionsZeitPremiumtuer = Premiumtuer.getProduktionszeit();
 
     private volatile boolean pausiert = false;
+    private volatile boolean abortAktuellesProdukt = false;
     private volatile String aktuellesProduktName = null;
     private volatile long aktuellerStartMs = 0L;
     private volatile int aktuellerGesamtMs = 0;
@@ -94,6 +95,17 @@ public class Roboter extends Thread {
             if (pausiert) {
                 return false;
             }
+            if (abortAktuellesProdukt) {
+                // Abbruch des aktuellen Produkts ohne nächste Produktionsstation
+                aktuellesProduktName = null;
+                aktuellerGesamtMs = 0;
+                aktuellerStartMs = 0L;
+                verbleibendeMs = 0;
+                abortAktuellesProdukt = false;
+                aktuellesProdukt = null;
+                ThreadUtil.synchronisiertesPrintln(name + " Abbruch: " + (produkt != null ? produkt.getClass().getSimpleName() : "-") );
+                return false;
+            }
             int sleepMs = Math.min(schritt, verbleibendeMs);
             ThreadUtil.sleep(sleepMs);
             verbleibendeMs -= sleepMs;
@@ -130,6 +142,17 @@ public class Roboter extends Thread {
     }
 
     public void fuegeProduktHinzu(Produkt produkt) { warteschlange.add(produkt); }
+
+    /** Entfernt alle übergebenen Produkte aus Warteschlange; bricht das aktuell produzierte ab, falls betroffen. */
+    public void entferneProdukte(java.util.List<Produkt> produkte) {
+        if (produkte == null || produkte.isEmpty()) return;
+        // Entferne aus Queue
+        warteschlange.removeIf(p -> produkte.contains(p));
+        // Abbruch des aktuell bearbeiteten Produkts
+        if (aktuellesProdukt != null && produkte.contains(aktuellesProdukt)) {
+            abortAktuellesProdukt = true;
+        }
+    }
 
     public void setzePausiert(boolean wert) { this.pausiert = wert; }
     public boolean istPausiert() { return this.pausiert; }

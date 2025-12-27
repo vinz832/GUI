@@ -1,0 +1,18 @@
+#Sat Dec 27 18:37:19 CET 2025
+bluej.teamsettings.git.branch=main
+bluej.teamsettings.git.protocol=https
+bluej.teamsettings.git.repositoryPrefix=/vinz832/GUI
+bluej.teamsettings.git.server=github.com
+bluej.teamsettings.ignore1=.*\\.class
+bluej.teamsettings.ignore2=bluej\\.pkh
+bluej.teamsettings.ignore3=team\\.defs
+bluej.teamsettings.ignore4=.*\\.ctxt
+bluej.teamsettings.ignore5=.*\\~
+bluej.teamsettings.ignore6=.*\\\#
+bluej.teamsettings.ignore7=.*\\\#backup
+bluej.teamsettings.ignore8=\\.DS_Store
+bluej.teamsettings.savedpwd=fl5KZCgPHOqP+YbBZD3YrlHxfjCBrH8wOF3j9hiO64ZQT5JSGGgL2p5XUHd8mIC0
+bluej.teamsettings.user=vinz832 
+bluej.teamsettings.vcs=git
+bluej.teamsettings.yourEmail=vinz832@github.com
+bluej.teamsettings.yourName=vinz832

@@ -1,19 +1,19 @@
 #BlueJ class context
 comment0.target=Standardtuer
-comment0.text=\n\ Die\ Klasse\ Standardtuer\ repraesentiert\ ein\ Basismodell,\ welches\ die\ Merkmale\ und\n\ Funktionen\ der\ Oberklasse\ Produkt\ uebernimmt.\ Sie\ stellt\ eine\ spezifische\ Auspraegung\ \n\ dar\ und\ konkretisiert\ die\ allgemeinen\ Eigenschaften\ der\ Produktklasse.\ \n\ Hier\ sind\ die\ individuellen\ Ressourcenanforderungen\ sowie\ die\ kalkulierten\ \n\ Fertigungsintervalle\ fuer\ das\ Standardmodell\ hinterlegt.\n\ *\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\n\ @21.12.2025\n
+comment0.text=\r\n\ Die\ Klasse\ Standardtuer\ repraesentiert\ ein\ Basismodell,\ welches\ die\ Merkmale\ und\r\n\ Funktionen\ der\ Oberklasse\ Produkt\ uebernimmt.\ Sie\ stellt\ eine\ spezifische\ Auspraegung\ \r\n\ dar\ und\ konkretisiert\ die\ allgemeinen\ Eigenschaften\ der\ Produktklasse.\ \r\n\ Hier\ sind\ die\ individuellen\ Ressourcenanforderungen\ sowie\ die\ kalkulierten\ \r\n\ Fertigungsintervalle\ fuer\ das\ Standardmodell\ hinterlegt.\r\n\ *\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\r\n\ @21.12.2025\r\n
 comment1.params=
 comment1.target=int\ getHolzeinheiten()
-comment1.text=\n\ Ermittelt\ die\ Menge\ an\ Holzeinheiten,\ die\ fuer\ die\ Fertigung\ einer\ Standardtuer\ \n\ veranschlagt\ wurden.\n\ *\ @return\ Die\ Anzahl\ der\ benoetigten\ Holzeinheiten.\n
+comment1.text=\r\n\ Ermittelt\ die\ Menge\ an\ Holzeinheiten,\ die\ fuer\ die\ Fertigung\ einer\ Standardtuer\ \r\n\ veranschlagt\ wurden.\r\n\ *\ @return\ Die\ Anzahl\ der\ benoetigten\ Holzeinheiten.\r\n
 comment2.params=
 comment2.target=int\ getSchrauben()
-comment2.text=\n\ Ermittelt\ die\ Anzahl\ der\ Schrauben,\ die\ fuer\ den\ Zusammenbau\ einer\ Standardtuer\ \n\ erforderlich\ sind.\n\ *\ @return\ Die\ Anzahl\ der\ Schrauben.\n
+comment2.text=\r\n\ Ermittelt\ die\ Anzahl\ der\ Schrauben,\ die\ fuer\ den\ Zusammenbau\ einer\ Standardtuer\ \r\n\ erforderlich\ sind.\r\n\ *\ @return\ Die\ Anzahl\ der\ Schrauben.\r\n
 comment3.params=
 comment3.target=int\ getFarbeinheiten()
-comment3.text=\n\ Gibt\ Auskunft\ ueber\ den\ Bedarf\ an\ Farbeinheiten\ fuer\ die\ Veredelung\ \n\ einer\ Standardtuer.\n\ *\ @return\ Die\ Anzahl\ der\ kalkulierten\ Farbeinheiten.\n
+comment3.text=\r\n\ Gibt\ Auskunft\ ueber\ den\ Bedarf\ an\ Farbeinheiten\ fuer\ die\ Veredelung\ \r\n\ einer\ Standardtuer.\r\n\ *\ @return\ Die\ Anzahl\ der\ kalkulierten\ Farbeinheiten.\r\n
 comment4.params=
 comment4.target=int\ getKartoneinheiten()
-comment4.text=\n\ Liefert\ den\ Wert\ fuer\ die\ Verpackungseinheiten,\ die\ fuer\ eine\ Standardtuer\ \n\ bereitgestellt\ werden\ muessen.\n\ *\ @return\ Die\ Anzahl\ der\ Kartoneinheiten.\n
+comment4.text=\r\n\ Liefert\ den\ Wert\ fuer\ die\ Verpackungseinheiten,\ die\ fuer\ eine\ Standardtuer\ \r\n\ bereitgestellt\ werden\ muessen.\r\n\ *\ @return\ Die\ Anzahl\ der\ Kartoneinheiten.\r\n
 comment5.params=
 comment5.target=int\ getProduktionszeit()
-comment5.text=\n\ Ruft\ die\ hinterlegte\ Produktionsdauer\ fuer\ dieses\ Modell\ ab.\n\ *\ @return\ Die\ Herstellungszeit\ ausgedrueckt\ in\ Minuten.\n
+comment5.text=\r\n\ Ruft\ die\ hinterlegte\ Produktionsdauer\ fuer\ dieses\ Modell\ ab.\r\n\ *\ @return\ Die\ Herstellungszeit\ ausgedrueckt\ in\ Minuten.\r\n
 numComments=6

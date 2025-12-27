@@ -1,9 +1,9 @@
 #BlueJ class context
 comment0.target=LagerTest
-comment0.text=\n\ Die\ Pruefklasse\ LagerTest\ dient\ zur\ Verifikation\ diverser\ Testszenarien,\ um\ die\ Systemstabilit\u00E4t\ zu\ garantieren.\n\ Es\ werden\ unterschiedliche\ Ablaeufe\ untersucht,\ um\ eine\ fehlerfreie\ Auftragsabwicklung\ sowie\ eine\n\ korrekte\ Reaktion\ auf\ unzulaessige\ Daten\ sicherzustellen.\n\ *\ Die\ Testsuite\ deckt\ sowohl\ regul\u00E4re\ als\ auch\ fehlerhafte\ Zust\u00E4nde\ ab.\n\ *\ Hauptziel\ dieser\ Klasse\ ist\ die\ Validierung\ der\ Basisfunktionen,\ um\ einen\ robusten\ und\ \n\ stoerungsfreien\ Betrieb\ des\ Gesamtsystems\ zu\ gewaehrleisten.\n\n\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\n\ @21.12.2025\n
+comment0.text=\r\n\ Die\ Pruefklasse\ LagerTest\ dient\ zur\ Verifikation\ diverser\ Testszenarien,\ um\ die\ Systemstabilit\u00E4t\ zu\ garantieren.\r\n\ Es\ werden\ unterschiedliche\ Ablaeufe\ untersucht,\ um\ eine\ fehlerfreie\ Auftragsabwicklung\ sowie\ eine\r\n\ korrekte\ Reaktion\ auf\ unzulaessige\ Daten\ sicherzustellen.\r\n\ *\ Die\ Testsuite\ deckt\ sowohl\ regul\u00E4re\ als\ auch\ fehlerhafte\ Zust\u00E4nde\ ab.\r\n\ *\ Hauptziel\ dieser\ Klasse\ ist\ die\ Validierung\ der\ Basisfunktionen,\ um\ einen\ robusten\ und\ \r\n\ stoerungsfreien\ Betrieb\ des\ Gesamtsystems\ zu\ gewaehrleisten.\r\n\r\n\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\r\n\ @21.12.2025\r\n
 comment1.params=
 comment1.target=LagerTest()
-comment1.text=\n\ Standardkonstruktor\ fuer\ die\ Testumgebung\ LagerTest.\n
+comment1.text=\r\n\ Standardkonstruktor\ fuer\ die\ Testumgebung\ LagerTest.\r\n
 comment10.params=
 comment10.target=void\ testLagerFastLeerAuffuellen()
 comment11.params=
@@ -16,10 +16,10 @@ comment14.params=
 comment14.target=void\ testLagerAuffuellenKeinBedarf()
 comment2.params=
 comment2.target=void\ setUp()
-comment2.text=\n\ Bereitet\ die\ Testumgebung\ unmittelbar\ vor\ jedem\ Testdurchlauf\ vor.\n
+comment2.text=\r\n\ Bereitet\ die\ Testumgebung\ unmittelbar\ vor\ jedem\ Testdurchlauf\ vor.\r\n
 comment3.params=
 comment3.target=void\ tearDown()
-comment3.text=\n\ Fuehrt\ abschliessende\ Schritte\ nach\ jedem\ Testdurchgang\ aus.\n
+comment3.text=\r\n\ Fuehrt\ abschliessende\ Schritte\ nach\ jedem\ Testdurchgang\ aus.\r\n
 comment4.params=
 comment4.target=void\ testLagerBestandAusgeben()
 comment5.params=

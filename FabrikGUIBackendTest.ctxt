@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=FabrikGUIBackendTest
+comment0.text=\r\n\ Tests\ verifizieren,\ dass\ GUI-Aktionen\ das\ Backend\ aufrufen.\r\n\ Hinweis\:\ Ausf\u00FChrung\ ben\u00F6tigt\ JUnit\ 5\ auf\ dem\ Klassenpfad.\r\n
+comment1.params=root\ name
+comment1.target=java.awt.Component\ findByName(java.awt.Container,\ java.lang.String)
+comment2.params=
+comment2.target=void\ headless()
+comment3.params=
+comment3.target=void\ testSubmitOrderCallsBackend()
+comment4.params=
+comment4.target=void\ testMenuAuffuellenCallsLager()
+comment5.params=
+comment5.target=void\ testNachbestellenDialogCallsManuelleNachbestellung()
+comment6.params=
+comment6.target=void\ testMaschinenparkServiceAndPause()
+numComments=7

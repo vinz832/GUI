@@ -1,15 +1,15 @@
 #BlueJ class context
 comment0.target=StandardtuerTest
-comment0.text=\n\ Diese\ Testumgebung\ dient\ der\ Ueberpruefung\ saemtlicher\ Prozessablaeufe\ innerhalb\ der\ Standardmodelle.\ \n\ Es\ werden\ diverse\ Szenarien\ durchlaufen,\ um\ die\ korrekte\ Verarbeitung\ von\ Auftraegen\ sicherzustellen\ \n\ und\ eine\ angemessene\ Handhabung\ sowie\ Rueckmeldung\ bei\ fehlerhaften\ Eingaben\ zu\ garantieren.\n\ *\ Die\ Pruefverfahren\ decken\ sowohl\ regul\u00E4re\ Erfolgsfaelle\ als\ auch\ kritische\ Fehlerszenarien\ ab.\n\ *\ Prim\u00E4r\ dient\ diese\ Klasse\ der\ Absicherung\ der\ Basisfunktionalitaeten,\ um\ ein\ stabiles\ \n\ und\ fehlerfreies\ Systemverhalten\ zu\ gewaehrleisten.\n\n\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\n\ @21.12.2025\n
+comment0.text=\r\n\ Diese\ Testumgebung\ dient\ der\ Ueberpruefung\ saemtlicher\ Prozessablaeufe\ innerhalb\ der\ Standardmodelle.\ \r\n\ Es\ werden\ diverse\ Szenarien\ durchlaufen,\ um\ die\ korrekte\ Verarbeitung\ von\ Auftraegen\ sicherzustellen\ \r\n\ und\ eine\ angemessene\ Handhabung\ sowie\ Rueckmeldung\ bei\ fehlerhaften\ Eingaben\ zu\ garantieren.\r\n\ *\ Die\ Pruefverfahren\ decken\ sowohl\ regul\u00E4re\ Erfolgsfaelle\ als\ auch\ kritische\ Fehlerszenarien\ ab.\r\n\ *\ Prim\u00E4r\ dient\ diese\ Klasse\ der\ Absicherung\ der\ Basisfunktionalitaeten,\ um\ ein\ stabiles\ \r\n\ und\ fehlerfreies\ Systemverhalten\ zu\ gewaehrleisten.\r\n\r\n\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\r\n\ @21.12.2025\r\n
 comment1.params=
 comment1.target=StandardtuerTest()
-comment1.text=\n\ Initialer\ Konstruktor\ fuer\ die\ Testklasse\ StandardtuerTest.\n
+comment1.text=\r\n\ Initialer\ Konstruktor\ fuer\ die\ Testklasse\ StandardtuerTest.\r\n
 comment2.params=
 comment2.target=void\ setUp()
-comment2.text=\n\ Vorbereitungsschritte,\ die\ unmittelbar\ vor\ jedem\ einzelnen\ Pruefdurchgang\ ausgefuehrt\ werden.\n
+comment2.text=\r\n\ Vorbereitungsschritte,\ die\ unmittelbar\ vor\ jedem\ einzelnen\ Pruefdurchgang\ ausgefuehrt\ werden.\r\n
 comment3.params=
 comment3.target=void\ tearDown()
-comment3.text=\n\ Abschlussroutinen,\ die\ nach\ Beendigung\ jedes\ Testdurchgangs\ erfolgen.\n
+comment3.text=\r\n\ Abschlussroutinen,\ die\ nach\ Beendigung\ jedes\ Testdurchgangs\ erfolgen.\r\n
 comment4.params=
 comment4.target=void\ testeStandardtuerGetters()
 comment5.params=

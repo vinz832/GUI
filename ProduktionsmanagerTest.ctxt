@@ -1,22 +1,22 @@
 #BlueJ class context
 comment0.target=ProduktionsmanagerTest
-comment0.text=\n\ Die\ Unit-Test-Klasse\ ProduktionsmanagerTest\ dient\ dazu,\ diverse\ Pruefszenarien\ zu\ durchlaufen,\n\ um\ die\ Systemstabilit\u00E4t\ zu\ validieren.\ Es\ werden\ unterschiedliche\ Ablaeufe\ simuliert,\n\ damit\ sichergestellt\ ist,\ dass\ Auftraege\ fehlerfrei\ abgearbeitet\ sowie\ unzulaessige\ \n\ Parameter\ erkannt\ und\ entsprechend\ kommuniziert\ werden.\n\n\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\n\ @21.12.2025\n
+comment0.text=\r\n\ Die\ Unit-Test-Klasse\ ProduktionsmanagerTest\ dient\ dazu,\ diverse\ Pruefszenarien\ zu\ durchlaufen,\r\n\ um\ die\ Systemstabilit\u00E4t\ zu\ validieren.\ Es\ werden\ unterschiedliche\ Ablaeufe\ simuliert,\r\n\ damit\ sichergestellt\ ist,\ dass\ Auftraege\ fehlerfrei\ abgearbeitet\ sowie\ unzulaessige\ \r\n\ Parameter\ erkannt\ und\ entsprechend\ kommuniziert\ werden.\r\n\r\n\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\r\n\ @21.12.2025\r\n
 comment1.params=
 comment1.target=ProduktionsmanagerTest()
-comment1.text=\n\ Standardkonstruktor\ fuer\ die\ Testklasse\ ProduktionsmanagerTest.\n
+comment1.text=\r\n\ Standardkonstruktor\ fuer\ die\ Testklasse\ ProduktionsmanagerTest.\r\n
 comment2.params=
 comment2.target=void\ setUp()
-comment2.text=\n\ Festlegung\ der\ Konfiguration,\ die\ vor\ jedem\ einzelnen\ Pr\u00FCfdurchgang\ ausgefuehrt\ wird.\n
+comment2.text=\r\n\ Festlegung\ der\ Konfiguration,\ die\ vor\ jedem\ einzelnen\ Pr\u00FCfdurchgang\ ausgefuehrt\ wird.\r\n
 comment3.params=
 comment3.target=void\ tearDown()
-comment3.text=\n\ Bereinigungsarbeiten,\ die\ nach\ Abschluss\ jedes\ Testfalls\ erfolgen.\n
+comment3.text=\r\n\ Bereinigungsarbeiten,\ die\ nach\ Abschluss\ jedes\ Testfalls\ erfolgen.\r\n
 comment4.params=
 comment4.target=void\ testfeuegeZuVerarbeitendeBestellungenHinzu()
 comment5.params=
 comment5.target=void\ testRoboterZuweisen()
 comment6.params=
 comment6.target=void\ testBestellungMitGenugMaterial()
-comment6.text=\n\ Die\ nachfolgenden\ Tests\ sind\ deaktiviert,\ da\ sie\ in\ der\ BlueJ-Umgebung\ zu\ Instabilitaeten\ fuehren.\n
+comment6.text=\r\n\ Die\ nachfolgenden\ Tests\ sind\ deaktiviert,\ da\ sie\ in\ der\ BlueJ-Umgebung\ zu\ Instabilitaeten\ fuehren.\r\n
 comment7.params=
 comment7.target=void\ testBestellungMitNichtGenugMaterial()
 comment8.params=

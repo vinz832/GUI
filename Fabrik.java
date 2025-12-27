@@ -147,6 +147,27 @@ public void bestellungAufgeben(int anzahlStandardtueren, int anzahlPremiumtueren
     public Produktionsmanager gibProduktionsmanager() {
         return this.produktionsmanager;
     }
+
+    /**
+     * Storniert eine Bestellung (auch im Status "in Produktion").
+     * Entfernt sie aus Queue oder laufender Produktion und aus der Fabrikliste; bereinigt Roboter-Queues.
+     * @param bestellNummer Die Bestellnummer
+     * @return true, wenn eine Entfernung stattfand; false, wenn nicht gefunden
+     */
+    public boolean bestellungStornieren(int bestellNummer) {
+        Bestellung ziel = null;
+        for (Bestellung b : bestellungen) {
+            if (b.gibBestellNr() == bestellNummer) { ziel = b; break; }
+        }
+        if (ziel == null) return false;
+        boolean changed = produktionsmanager.storniereBestellungKomplett(ziel);
+        ziel.storniere();
+        if (changed) {
+            System.out.println("Bestellung " + bestellNummer + " wurde storniert.");
+            return true;
+        }
+        return false;
+    }
     
     /**
      * Ermoeglicht das Abrufen der Information, wie oft eine Materialnachfuellung erfolgte.

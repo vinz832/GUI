@@ -110,18 +110,25 @@ public class FabrikGUI {
         btnOrder.addActionListener(e -> submitOrder());
         c.gridx=0; c.gridy=3; c.gridwidth=2; c.fill = GridBagConstraints.HORIZONTAL; west.add(btnOrder, c);
 
+        // Der Storno-Button wird künftig pro Zeile in der Tabelle angezeigt
+
         frame.add(west, BorderLayout.WEST);
 
         // CENTER: Status-Tabelle (JTable)
-        String[] cols = {"Bestellnummer", "Standard", "Premium", "Beschaffungszeit", "Lieferzeit", "Status"};
+        String[] cols = {"Bestellnummer", "Standard", "Premium", "Beschaffungszeit", "Lieferzeit", "Status", "Aktion"};
         tableModel = new DefaultTableModel(cols, 0) {
-            public boolean isCellEditable(int row, int column) { return false; }
+            public boolean isCellEditable(int row, int column) { return column == 6; }
         };
         table = new JTable(tableModel);
         table.setFillsViewportHeight(true);
         JScrollPane centerScroll = new JScrollPane(table);
         centerScroll.setBorder(BorderFactory.createTitledBorder("Bestellungen"));
         frame.add(centerScroll, BorderLayout.CENTER);
+
+        // Renderer/Editor für Aktions-Button je Zeile
+        javax.swing.table.TableColumn actionCol = table.getColumnModel().getColumn(6);
+        actionCol.setCellRenderer(new ActionButtonRenderer());
+        actionCol.setCellEditor(new ActionButtonEditor());
 
         // EAST: Überwachung/Monitoring
         JPanel east = new JPanel();
@@ -546,6 +553,8 @@ public class FabrikGUI {
         }
     }
 
+    // Zeilenaktionen werden über die Aktionsspalte bereitgestellt (Renderer/Editor unten)
+
     private void startTimers() {
         // Tabelle und Monitoring alle ~750ms aktualisieren
         new javax.swing.Timer(750, e -> refreshData()).start();
@@ -563,7 +572,8 @@ public class FabrikGUI {
                     b.gibAnzahlPremiumtueren(),
                     b.gibBeschaffungsZeit(),
                     Math.round(b.gibLieferzeit()*100)/100f,
-                    b.gibStatusString()
+                    b.gibStatusString(),
+                    "Stornieren"
                 };
                 tableModel.addRow(row);
             }
@@ -619,9 +629,13 @@ public class FabrikGUI {
         long sumFlowMillis = 0L; int flowCount = 0;
         for (Bestellung b : list) {
             String st = b.gibStatusString();
-            if ("fertig".equalsIgnoreCase(st)) done++;
-            else if ("in Produktion".equalsIgnoreCase(st)) { inProduction++; open++; }
-            else { open++; }
+            if ("fertig".equalsIgnoreCase(st)) {
+                done++;
+            } else if ("in Produktion".equalsIgnoreCase(st)) {
+                inProduction++; open++;
+            } else if ("neu".equalsIgnoreCase(st)) {
+                open++;
+            } // "storniert" zählt nicht als offen
             float lt = b.gibLieferzeit();
             if (lt > 0) { sumLt += lt; ltCount++; if (lt > maxLt) maxLt = lt; }
             Long fin = b.gibFinishedAt();
@@ -668,6 +682,58 @@ public class FabrikGUI {
                 status = "geliefert um " + delivered;
             }
             histModel.addRow(new Object[]{ time, re.typ, re.holz, re.schrauben, re.farbe, re.glas, re.karton, status });
+        }
+    }
+
+    // Button-Renderer für die Aktionsspalte
+    private class ActionButtonRenderer extends JButton implements javax.swing.table.TableCellRenderer {
+        public ActionButtonRenderer() { setOpaque(true); }
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+            String status = String.valueOf(table.getModel().getValueAt(row, 5));
+            setText("Stornieren");
+            // Button aktiv für neu/in Produktion; deaktiviert für fertig/storniert
+            boolean enabled = !("fertig".equalsIgnoreCase(status) || "storniert".equalsIgnoreCase(status));
+            setEnabled(enabled);
+            return this;
+        }
+    }
+
+    // Button-Editor für die Aktionsspalte (führt Stornierung mit Bestätigung aus)
+    private class ActionButtonEditor extends AbstractCellEditor implements javax.swing.table.TableCellEditor, java.awt.event.ActionListener {
+        private final JButton button = new JButton();
+        private int editingRow = -1;
+        public ActionButtonEditor() { button.addActionListener(this); }
+        public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column) {
+            editingRow = row;
+            String status = String.valueOf(table.getModel().getValueAt(row, 5));
+            button.setText("Stornieren");
+            button.setEnabled(!("fertig".equalsIgnoreCase(status) || "storniert".equalsIgnoreCase(status)));
+            return button;
+        }
+        public Object getCellEditorValue() { return "Stornieren"; }
+        public void actionPerformed(java.awt.event.ActionEvent e) {
+            try {
+                Object idObj = tableModel.getValueAt(editingRow, 0);
+                int bestellNrSel = Integer.parseInt(String.valueOf(idObj));
+                int res = JOptionPane.showConfirmDialog(frame,
+                        "Bestellung " + bestellNrSel + " wirklich stornieren?",
+                        "Bestätigung",
+                        JOptionPane.YES_NO_OPTION,
+                        JOptionPane.QUESTION_MESSAGE);
+                if (res == JOptionPane.YES_OPTION) {
+                    boolean ok = fabrik.bestellungStornieren(bestellNrSel);
+                    if (ok) {
+                        JOptionPane.showMessageDialog(frame, "Bestellung " + bestellNrSel + " wurde storniert.");
+                    } else {
+                        JOptionPane.showMessageDialog(frame, "Stornierung nicht möglich: Bestellung ist bereits in Produktion oder nicht gefunden.", "Hinweis", JOptionPane.WARNING_MESSAGE);
+                    }
+                    refreshData();
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(frame, "Fehler beim Stornieren: " + ex.getMessage(), "Fehler", JOptionPane.ERROR_MESSAGE);
+            } finally {
+                fireEditingStopped();
+            }
         }
     }
 

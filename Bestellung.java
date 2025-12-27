@@ -26,6 +26,8 @@ public class Bestellung
     private Long finishedAt;
     // Guard to prevent double material consumption per order
     private boolean materialVerbraucht;
+    // Cancellation flag
+    private boolean storniert;
     
     private Standardtuer standardtuer; // Temporaeres Objekt fuer eine Basistuer beim Befuellen
     private Premiumtuer premiumtuer; // Temporaeres Objekt fuer eine Luxustuer beim Befuellen
@@ -52,6 +54,7 @@ public class Bestellung
         this.anzahlPremiumtueren = anzahlPremiumtueren;
         this.createdAt = System.currentTimeMillis();
         this.materialVerbraucht = false;
+        this.storniert = false;
         fuelleBestellteprodukte(anzahlStandardtueren, anzahlPremiumtueren);  // Bestueckt die Liste gemaess der Order 
     }
 
@@ -237,6 +240,7 @@ public class Bestellung
      * Mögliche Werte: "neu", "in Produktion", "fertig".
      */
     public String gibStatusString() {
+        if (storniert) return "storniert";
         if (alleProdukteProduziert) return "fertig";
         boolean anyInProd = false;
         boolean allDone = true;
@@ -273,6 +277,11 @@ public class Bestellung
     public boolean istMaterialVerbraucht() { return materialVerbraucht; }
     /** Mark materials consumed to avoid double-deduction. */
     public void markiereMaterialVerbraucht() { this.materialVerbraucht = true; }
+
+    /** Markiert die Bestellung als storniert. */
+    public void storniere() { this.storniert = true; }
+    /** Gibt an, ob die Bestellung storniert ist. */
+    public boolean istStorniert() { return storniert; }
     
     /**
      * Ruft den derzeit gueltigen Standardwert fuer Lieferfristen ab.

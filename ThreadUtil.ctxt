@@ -1,10 +1,12 @@
 #BlueJ class context
 comment0.target=ThreadUtil
-comment0.text=\n\ Dieses\ Dienstprogramm\ dient\ als\ Assistenzmodul\ fuer\ die\ Steuerung\ von\ Threads.\ \n\ Es\ stellt\ praktische\ Funktionen\ bereit,\ welche\ die\ Koordination\ von\ parallelen\ \n\ Prozessen\ erleichtern,\ insbesondere\ durch\ das\ kontrollierte\ Anhalten\ von\ Threads\ \n\ sowie\ die\ abgesicherte\ Textausgabe\ in\ einem\ thread-sicheren\ Umfeld.\n\n\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\n\ @21.12.2025\n
-comment1.params=time
-comment1.target=void\ sleep(int)
-comment1.text=\n\ Versetzt\ den\ aktuell\ ausfuehrenden\ Thread\ fuer\ eine\ definierte\ Dauer\ in\ den\ Ruhezustand.\n\ Diese\ Funktion\ bewirkt\ eine\ Unterbrechung\ der\ Thread-Aktivitaet\ fuer\ die\ angegebene\ \n\ Anzahl\ an\ Millisekunden.\ Dies\ ist\ besonders\ wertvoll,\ um\ zeitliche\ Verzoegerungen\ \n\ abzubilden\ oder\ die\ Synchronitaet\ zwischen\ verschiedenen\ Ablaeufen\ zu\ regulieren.\n\n\ @param\ time\ Das\ Zeitintervall\ in\ Millisekunden,\ fuer\ welches\ der\ Thread\ pausieren\ soll.\n\ @throws\ IllegalArgumentException\ Falls\ ein\ negativer\ Zeitwert\ uebergeben\ wird.\n
-comment2.params=message
-comment2.target=void\ synchronisiertesPrintln(java.lang.String)
-comment2.text=\n\ Diese\ Prozedur\ unterbindet\ Konflikte\ beim\ gleichzeitigen\ Zugriff\ verschiedener\ Threads\ auf\ die\ Konsole.\ \n\ Dadurch\ wird\ sichergestellt,\ dass\ die\ Datenkanaele\ jeweils\ nur\ von\ einer\ Einheit\ exklusiv\ genutzt\ werden.\n\n\ @param\ message\ Der\ Textinhalt,\ welcher\ im\ Ausgabefenster\ erscheinen\ soll.\n\ *\ @throws\ NullPointerException\ Falls\ die\ zu\ sendende\ Nachricht\ den\ Wert\ null\ aufweist.\n
-numComments=3
+comment0.text=\r\n\ Dieses\ Dienstprogramm\ dient\ als\ Assistenzmodul\ fuer\ die\ Steuerung\ von\ Threads.\ \r\n\ Es\ stellt\ praktische\ Funktionen\ bereit,\ welche\ die\ Koordination\ von\ parallelen\ \r\n\ Prozessen\ erleichtern,\ insbesondere\ durch\ das\ kontrollierte\ Anhalten\ von\ Threads\ \r\n\ sowie\ die\ abgesicherte\ Textausgabe\ in\ einem\ thread-sicheren\ Umfeld.\r\n\r\n\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\r\n\ @21.12.2025\r\n
+comment1.params=logger
+comment1.target=void\ setLogger(java.util.function.Consumer)
+comment2.params=time
+comment2.target=void\ sleep(int)
+comment2.text=\r\n\ Versetzt\ den\ aktuell\ ausfuehrenden\ Thread\ fuer\ eine\ definierte\ Dauer\ in\ den\ Ruhezustand.\r\n\ Diese\ Funktion\ bewirkt\ eine\ Unterbrechung\ der\ Thread-Aktivitaet\ fuer\ die\ angegebene\ \r\n\ Anzahl\ an\ Millisekunden.\ Dies\ ist\ besonders\ wertvoll,\ um\ zeitliche\ Verzoegerungen\ \r\n\ abzubilden\ oder\ die\ Synchronitaet\ zwischen\ verschiedenen\ Ablaeufen\ zu\ regulieren.\r\n\r\n\ @param\ time\ Das\ Zeitintervall\ in\ Millisekunden,\ fuer\ welches\ der\ Thread\ pausieren\ soll.\r\n\ @throws\ IllegalArgumentException\ Falls\ ein\ negativer\ Zeitwert\ uebergeben\ wird.\r\n
+comment3.params=message
+comment3.target=void\ synchronisiertesPrintln(java.lang.String)
+comment3.text=\r\n\ Diese\ Prozedur\ unterbindet\ Konflikte\ beim\ gleichzeitigen\ Zugriff\ verschiedener\ Threads\ auf\ die\ Konsole.\ \r\n\ Dadurch\ wird\ sichergestellt,\ dass\ die\ Datenkanaele\ jeweils\ nur\ von\ einer\ Einheit\ exklusiv\ genutzt\ werden.\r\n\r\n\ @param\ message\ Der\ Textinhalt,\ welcher\ im\ Ausgabefenster\ erscheinen\ soll.\r\n\ *\ @throws\ NullPointerException\ Falls\ die\ zu\ sendende\ Nachricht\ den\ Wert\ null\ aufweist.\r\n
+numComments=4

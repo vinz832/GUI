@@ -72,6 +72,47 @@ public class Produktionsmanager extends Thread
                                         // eine korrekte Erfolgsmeldung auszugeben.
         System.out.println("Ein neuer Fertigungsauftrag wurde an den Manager uebergeben.");
     }
+
+    /**
+     * Entfernt eine Bestellung aus der Warteschlange, falls sie noch nicht in Produktion ist.
+     * @param bestellung Die zu stornierende Bestellung
+     * @return true, wenn die Bestellung aus der Queue entfernt wurde, sonst false
+     */
+    public boolean storniereBestellung(Bestellung bestellung) {
+        if (bestellung == null) return false;
+        boolean removed = zuVerarbeitendeBestellungen.remove(bestellung);
+        if (removed) {
+            System.out.println("Produktionsmanager: Bestellung " + bestellung.gibBestellNr() + " wurde aus der Warteschlange entfernt.");
+        }
+        return removed;
+    }
+
+    /**
+     * Storniert eine Bestellung vollständig: entfernt sie aus Warteschlange oder laufender Produktion
+     * und bereinigt alle Roboter-Warteschlangen (Abbruch des aktuell produzierten Produkts, falls zugehörig).
+     * @param bestellung Die zu stornierende Bestellung
+     * @return true, wenn die Bestellung aus Queue oder InProduktion entfernt wurde
+     */
+    public boolean storniereBestellungKomplett(Bestellung bestellung) {
+        if (bestellung == null) return false;
+        boolean changed = false;
+        // Entfernen aus Warteschlange (falls vorhanden)
+        if (zuVerarbeitendeBestellungen.remove(bestellung)) {
+            System.out.println("Produktionsmanager: Bestellung " + bestellung.gibBestellNr() + " aus Warteschlange storniert.");
+            changed = true;
+        }
+        // Entfernen aus laufender Produktion (falls vorhanden)
+        if (bestellungenInProduktion.remove(bestellung)) {
+            System.out.println("Produktionsmanager: Bestellung " + bestellung.gibBestellNr() + " aus laufender Produktion storniert.");
+            changed = true;
+        }
+        // Roboter-Warteschlangen bereinigen und aktuelles Produkt ggf. abbrechen
+        java.util.List<Produkt> produkte = bestellung.liefereBestellteProdukte();
+        for (Roboter r : maschinenpark) {
+            try { r.entferneProdukte(produkte); } catch (Exception ignore) {}
+        }
+        return changed;
+    }
     
     // Zugriffsmethode fuer automatisierte Tests
     public LinkedList<Bestellung> getZuVerarbeitendeBestellungen() {

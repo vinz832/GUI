@@ -1,15 +1,15 @@
 #BlueJ class context
 comment0.target=PremiumtuerTest
-comment0.text=\n\ Diese\ Pruefklasse\ validiert\ die\ verschiedenen\ Leistungsmerkmale\ der\ Premiumtuer.\ \n\ Anhand\ gezielter\ Ablaeufe\ wird\ sichergestellt,\ dass\ die\ Fertigungsprozesse\ \n\ einwandfrei\ funktionieren\ und\ das\ System\ stabil\ auf\ unterschiedliche\ Szenarien\ reagiert.\n\ *\ Das\ Pruefspektrum\ umfasst\ sowohl\ regul\u00E4re\ Ablaeufe\ als\ auch\ die\ Untersuchung\ \n\ von\ Fehlermoeglichkeiten.\ \n\ *\ Im\ Kern\ dient\ die\ Klasse\ der\ Qualitaetssicherung\ der\ Basisfunktionen,\ um\ \n\ eine\ kontinuierliche\ Zuverlaessigkeit\ der\ Anwendung\ zu\ garantieren.\n\n\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\n\ @21.12.2025\n
+comment0.text=\r\n\ Diese\ Pruefklasse\ validiert\ die\ verschiedenen\ Leistungsmerkmale\ der\ Premiumtuer.\ \r\n\ Anhand\ gezielter\ Ablaeufe\ wird\ sichergestellt,\ dass\ die\ Fertigungsprozesse\ \r\n\ einwandfrei\ funktionieren\ und\ das\ System\ stabil\ auf\ unterschiedliche\ Szenarien\ reagiert.\r\n\ *\ Das\ Pruefspektrum\ umfasst\ sowohl\ regul\u00E4re\ Ablaeufe\ als\ auch\ die\ Untersuchung\ \r\n\ von\ Fehlermoeglichkeiten.\ \r\n\ *\ Im\ Kern\ dient\ die\ Klasse\ der\ Qualitaetssicherung\ der\ Basisfunktionen,\ um\ \r\n\ eine\ kontinuierliche\ Zuverlaessigkeit\ der\ Anwendung\ zu\ garantieren.\r\n\r\n\ @Gruppe\ 16,\ Moacir,\ Owen,\ Matthieu,\ Vinzenz,\ Alexander\r\n\ @21.12.2025\r\n
 comment1.params=
 comment1.target=PremiumtuerTest()
-comment1.text=\n\ Allgemeiner\ Konstruktor\ fuer\ diese\ Testeinheit.\n
+comment1.text=\r\n\ Allgemeiner\ Konstruktor\ fuer\ diese\ Testeinheit.\r\n
 comment2.params=
 comment2.target=void\ setUp()
-comment2.text=\n\ Einrichtung\ der\ Testbasis\ und\ Protokollierung\ vor\ jedem\ Pruefschritt.\n
+comment2.text=\r\n\ Einrichtung\ der\ Testbasis\ und\ Protokollierung\ vor\ jedem\ Pruefschritt.\r\n
 comment3.params=
 comment3.target=void\ tearDown()
-comment3.text=\n\ Aufraeumarbeiten\ und\ Formatierung\ der\ Konsole\ nach\ Abschluss\ eines\ Laufs.\n
+comment3.text=\r\n\ Aufraeumarbeiten\ und\ Formatierung\ der\ Konsole\ nach\ Abschluss\ eines\ Laufs.\r\n
 comment4.params=
 comment4.target=void\ testePremiumtuerGetters()
 comment5.params=
